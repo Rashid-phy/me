@@ -1,0 +1,480 @@
+/*    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;*/
+
+
+body {
+  font-size: 16px;
+  color: #fff;
+  background-color: #61122f; /* NEED TO CHAMGE  #61122f  #c03c55  #c03c88  */
+  font-family: Helvetica, Arial, sans-serif;
+  /*font-family: 'Oxygen', sans-serif;*/
+}
+
+/** HEADER **/
+#header-nav {
+  background-color: #f6b319 ; /*#f6b319  #ffb400*/
+  border-radius: 0;
+  border: 0;
+}
+
+#my-img {
+  background: url('../images/Rashid_130.149.jpg') no-repeat;
+  border-radius: 8px;
+  width: 130px;
+  height: 140px;
+  margin: 12px 15px 10px 0;
+}
+
+.navbar-brand {
+  padding-top: 25px;
+}
+
+.navbar-brand h1 { /* Name */
+  font-family: 'Lora', serif;
+  color: #557c3e;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #222;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: .75;
+}
+.navbar-brand a:hover, .navbar-brand a:focus {
+  text-decoration: none;
+}
+.navbar-brand p { /* office details */
+  color: #000;
+  font-size: .8em;
+  margin-top: 15px;
+  /*vertical-align: middle;*/
+}
+
+#just-logo {
+  background: url('../images/JUST_logo_100.jpg') no-repeat;
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  margin: 0;
+}
+
+#nav-list {
+  margin-top: 30px;
+}
+
+#nav-list a {
+  color: #951C49;
+  text-align: center;
+  padding: 0px;
+  /*text-transform: uppercase;*/
+}
+
+#nav-list div:hover {
+/*  background: #f6b319; */
+  opacity: 0.9;
+}
+
+.navbar-header button.navbar-toggle, .navbar-header .icon-bar {
+  border: 1px solid #61122f;
+}
+.navbar-header button.navbar-toggle {
+  clear: both;
+  margin-top: 50px;
+}
+/* END HEADER */
+
+
+#side-nav { /* START BODY NAV */
+  background-color: #f6b319; /*#f6b319;*/
+  border-radius: 0;
+  border: 0;
+  position: fixed;
+/*  width: 12%;*/
+ }
+
+#side-nav a {
+  color: #000;
+  text-align: left;
+  /*text-transform: uppercase;
+  padding: 8.5px 15px 8.5px 12px;*/
+}
+
+#side-nav a:hover {
+  background: #E7E7E7; /*#f6b319; #557c3e lightgreen*/ 
+  /*border: 1px solid #61122f;
+  opacity: 0.95;*/
+}
+
+/* END BODY NAV */
+
+/* START BODY PAGE */
+
+.update-date {
+text-align: right;
+font-size: 0.8em;
+margin-top: -15px;
+}
+
+.page-topic {
+ margin-bottom: 30px;
+ padding-left: 20px;
+}
+
+.page-topic-name, .group-name {
+	font-size: 1.65em;
+	font-weight: bold;
+	color: lightgreen; /* lightyellow lightblue lightgreen */ 
+	/*text-shadow: 1px 1px 1px yellow;
+	margin-bottom: 0px;*/
+}
+
+.page-topic-name-description {
+  font-size: 0.7em;
+}
+
+.page-topic-list li {
+  list-style: square; /* square disc circle decimal none */
+  padding-bottom: 6px;
+  /*line-height: 2;*/
+}
+
+.page-topic a, #course-details a , #publication a, .past-std a, #open-position a {
+  color: #fff;
+  text-decoration: none;
+  }
+
+.page-topic a:hover, #course-details a:hover, #publication a:hover, .past-std a:hover, 
+#open-position a:hover {
+  background:  #f6b319; /* #000 #E7E7E7 #f6b319 #557c3e lightgreen*/ 
+  color: #000;
+  }
+
+.not-available li {
+  list-style: none;
+  padding-bottom: 10px;
+}
+
+.page-topic-details {
+  padding-left: 30px;
+  line-height: 1.5;
+}
+
+.page-topic-details p {
+  padding-bottom: 15px;
+  text-align: justify;
+  font-size: 1.2em
+}
+
+#about-me {
+  font-size: 1.2em;
+  text-align: justify;
+  width: 95%;
+  margin: 10px auto 40px auto;
+}
+
+.page-topic-details span, #publication span {
+  font-weight: bold;
+}
+
+#office-address li {
+  list-style: none; /* square disc circle decimal none */
+  padding-bottom: 2px;
+  /*line-height: 2;*/
+}
+
+#course-details {
+  margin: 15px auto 50px auto;
+}
+
+#course-details h2 {
+  font-size: 1.6em;
+  /*font-weight: bold;*/
+  color: white;
+  text-align: center;
+  margin: 5px auto 0 auto;
+}
+
+
+#course-details p {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 15px;
+  /*color: green;*/
+}
+
+.container .jumbotron {
+  box-shadow: 0 0 50px #3F0C1F;
+  border: 2px solid #3F0C1F;
+}
+
+/*.jumbotron img {
+  width: 100%;
+  height: 200px;
+}*/
+
+#about-research, #open-position {
+margin-bottom: 50px;
+}
+
+
+#about-research h2, #open-position h2 {
+  font-size: 2em;
+  color: #f6b319;
+  font-weight: bold;
+  padding: 0px;
+}
+
+#open-position h3 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#about-research p, #open-position p {
+  font-size: 1.2em;
+  text-align: justify;
+  margin: 10px auto 40px auto;
+}
+
+#open-position h3 {
+
+}
+
+.member-name {
+	font-size: 1.2em;
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+
+.member-details {
+	font-size: 0.9em;
+}
+
+.research-topic h3 {
+  font-size: 1.8em;
+  color: #f6b319;
+  font-weight: bold;
+  padding-top: 15px;
+}
+
+.research-topic img {
+  width: 75%;
+  margin: 25px auto;
+
+}
+
+#graphene {
+  width: 55%;
+}
+
+.research-topic p {
+  font-size: 1.2em;
+  text-align: justify;
+  width: 95%;
+  margin: 10px auto 30px auto;
+}
+
+#publication {
+  margin: 30px auto 35px auto;
+}
+
+#publication li {
+  text-align: justify;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+.page-topic h3 {
+  margin-top: 0;
+}
+
+.past-std p:nth-child(1) {
+  margin-bottom: -15px;
+}
+
+.past-std {
+ margin-bottom: 50px;
+}
+
+/* END BODY PAGE */
+
+
+/* FOOTER */
+.panel-footer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #222;
+  border-top: 0;
+}
+
+/* END FOOTER */
+
+/********** Large devices only **********/
+@media (min-width: 1200px) {
+  .container .jumbotron {
+    background: url('../images/jumbotron_1200.jpg') no-repeat;
+    height: 275px;
+  }
+
+  #course-details p {
+  width: 95%;
+  padding-left: 20px;
+}
+
+}
+
+/********** Medium devices only **********/
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container .jumbotron {
+    background: url('../images/jumbotron_992.jpg') no-repeat;
+    height: 230px;
+  }
+}
+
+/********** Small devices only **********/
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Header */
+  #my-img {
+    background: url('../images/Rashid_100.115.jpg') no-repeat;
+    width: 100px;
+    height: 115px;
+    margin: 25px 10px 5px 0;
+  }
+    /* End Header */
+  .container .jumbotron {
+    background: url('../images/jumbotron_768.jpg') no-repeat;
+    height: 180px;
+  }
+
+  .research-topic p {
+    font-size: 1.1em;
+  }
+
+}
+
+/********** Extra small devices only **********/
+@media (max-width: 767px) {
+  /* Header */
+  .navbar-brand {
+    padding-top: 20px;
+    height: 50px;
+  }
+
+ /* Name  1vw = 1% of viewport width */
+ /* .navbar-brand h1 { 
+    font-size: 4.5vw; 
+  }*/
+
+  .navbar-brand p { /* office details */
+    font-size: .85em;
+    margin-top: 10px;
+  }
+ 
+  #collapsable-nav a { /* Collapsed nav menu text */
+    font-size: 1em;
+    margin-top: 0px;
+  }
+
+  #nav-list {
+    margin-top: 0px;
+  }
+
+  #nav-list a {
+    padding: 5px;
+  }
+
+  #nav-list a:hover {
+    background: #E7E7E7;
+  }
+
+  .navbar-header button.navbar-toggle {
+    margin-top: 5px;
+    margin-bottom: 6px;
+  }
+  /* End Header */
+
+  .page-topic-list li {
+  	font-size: 0.95em;
+  }
+
+
+  .container .jumbotron {
+    margin-top: 30px;
+    padding: 0;
+  }
+
+  #about-research h2, #course-details h2, #open-position h2 {
+	font-size: 1.5em;
+  }
+
+ #open-position h3 {
+  font-size: 1.3em;
+ }
+
+  .page-topic {
+	margin-bottom: 30px;
+  }
+
+  .page-topic-name, .group-name, .research-topic h3 {
+	font-size: 1.4em;
+	/*margin-bottom: 0px;*/
+  }
+
+.page-topic-details p, #about-me, #about-research p, #open-position p {
+  font-size: 1.1em
+}
+
+  .member-name {
+	font-size: 1.1em;
+	margin-top: 10px;
+	margin-bottom: 0;
+  }
+
+  .member-details {
+	font-size: 0.85em;
+  }
+
+}
+
+/********** Super Extra small devices only **********/
+@media (max-width: 500px) {
+  /* Header */
+  .navbar-brand h1 { /* Name */
+    font-size: 5.0vw; /* 1vw = 1% of viewport width */
+  }
+
+  #about-research h2, #course-details h2, #open-position h2 {
+	font-size: 1.4em;
+  }
+
+ #open-position h3 {
+  font-size: 1.1em;
+ }
+
+  .page-topic-list li {
+  	font-size: 0.9em;
+  }
+
+.page-topic-details p, #about-me,#about-research p, #open-position p {
+  font-size: 1.0em
+}
+
+}
