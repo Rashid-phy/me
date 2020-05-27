@@ -51,7 +51,7 @@ body {
 
 .navbar-brand h1 { /* Name */
   font-family: 'Lora', serif;
-  color: #557c3e;
+  color: green; /* #557c3e */
   font-size: 1.5em;
   font-weight: bold;
   text-shadow: 1px 1px 1px #222;
