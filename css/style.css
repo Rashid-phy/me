@@ -153,6 +153,7 @@ margin-top: -15px;
 .page-topic-list li {
   list-style: square; /* square disc circle decimal none */
   padding-bottom: 6px;
+  font-size: 1.2em;
   /*line-height: 2;*/
 }
 
@@ -301,6 +302,7 @@ margin-bottom: 50px;
   text-align: justify;
   padding-top: 5px;
   padding-bottom: 10px;
+  font-size: 1.2em;
 }
 
 .page-topic h3 {
@@ -402,11 +404,6 @@ margin-bottom: 50px;
   }
   /* End Header */
 
-  .page-topic-list li {
-  	font-size: 0.95em;
-  }
-
-
   .container .jumbotron {
     margin-top: 30px;
     padding: 0;
@@ -433,8 +430,8 @@ margin-bottom: 50px;
 	/*margin-bottom: 0px;*/
   }
 
- .page-topic-details p, #about-me, #about-research p, #open-position p, 
- .research-topic p, .about-course p {
+ .page-topic-list li, .page-topic-details p, #about-me, #about-research p, #open-position p, 
+ .research-topic p, .about-course p, #publication li {
     font-size: 1.1em;
   }
 
@@ -472,12 +469,8 @@ margin-bottom: 50px;
   font-size: 1.1em;
  }
 
-  .page-topic-list li {
-  	font-size: 0.9em;
-  }
-
-.page-topic-details p, #about-me, #about-research p, #open-position p, 
-.about-course p, .research-topic p {
+.page-topic-list li, .page-topic-details p, #about-me, #about-research p, #open-position p, 
+.about-course p, .research-topic p, #publication li {
   font-size: 1.0em
 }
 
