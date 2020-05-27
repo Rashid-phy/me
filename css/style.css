@@ -224,23 +224,9 @@ margin-top: -15px;
   /*color: green;*/
 }
 
-.research-topic img {
-  width: 70%;
-  border-radius: 10px;
-  margin: 25px auto;
-  box-shadow: 0 0 50px #3F0C1F;
-  border: 2px solid #3F0C1F;
-}
-
-.container #materials-theory {
-  box-shadow: 0 0 50px #3F0C1F;
-  border: 2px solid #3F0C1F;
-}
-
 #about-research, #open-position {
 margin-bottom: 50px;
 }
-
 
 #about-research h2, #open-position h2 {
   font-size: 2em;
@@ -281,8 +267,16 @@ margin-bottom: 50px;
   padding-top: 15px;
 }
 
-.graphene {
-  width: 50%;
+.research-topic img {
+  width: 70%;
+  border-radius: 5px;
+  margin: 25px auto;
+  border: 1px solid #3F0C1F;
+}
+
+.container #materials-theory {
+  box-shadow: 0 0 50px #3F0C1F;
+  border: 2px solid #3F0C1F;
 }
 
 .research-topic p {
@@ -332,6 +326,11 @@ margin-bottom: 50px;
     height: 306px;
     margin: 10px auto 0 auto;
   }
+
+  .research-topic .graphene {
+    width: 50%;
+  }
+
 }
 
 /********** Medium devices only **********/
@@ -340,6 +339,10 @@ margin-bottom: 50px;
     background: url('../images/materials-theory_600.jpg') no-repeat;
     width: 600px;
     height: 262px;
+  }
+
+  .research-topic .graphene {
+    width: 60%;
   }
 }
 
@@ -444,8 +447,8 @@ margin-bottom: 50px;
 	font-size: 0.85em;
   }
   
-  .graphene {
-   width: 60%;
+ .research-topic .materials {
+   width: 80%;
   }
 }
 
