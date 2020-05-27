@@ -251,15 +251,15 @@ margin-bottom: 50px;
   font-weight: bold;
 }
 
+#about-research p {
+  width: 95%;
+}
 #about-research p, #open-position p {
   font-size: 1.2em;
   text-align: justify;
   margin: 10px auto 40px auto;
 }
 
-#open-position h3 {
-
-}
 
 .member-name {
 	font-size: 1.2em;
