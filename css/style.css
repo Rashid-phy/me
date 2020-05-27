@@ -156,12 +156,12 @@ margin-top: -15px;
   /*line-height: 2;*/
 }
 
-.page-topic a, #course-details a , #publication a, .past-std a, #open-position a {
+.page-topic a, .about-course a , #publication a, .past-std a, #open-position a {
   color: #fff;
   text-decoration: none;
   }
 
-.page-topic a:hover, #course-details a:hover, #publication a:hover, .past-std a:hover, 
+.page-topic a:hover, .about-course a:hover, #publication a:hover, .past-std a:hover, 
 #open-position a:hover {
   background:  #f6b319; /* #000 #E7E7E7 #f6b319 #557c3e lightgreen*/ 
   color: #000;
@@ -200,24 +200,25 @@ margin-top: -15px;
   /*line-height: 2;*/
 }
 
-#course-details {
+.about-course {
   margin: 15px auto 50px auto;
 }
 
-#course-details h2 {
+.about-course h2 {
   font-size: 1.6em;
-  /*font-weight: bold;*/
-  color: white;
+  font-weight: bold;
+  color: #fff;
   text-align: center;
   margin: 5px auto 0 auto;
 }
 
 
-#course-details p {
+.about-course p {
   font-size: 1.2em;
   font-weight: bold;
   text-align: center;
   padding-top: 15px;
+  /*width: 95%;*/
   /*color: green;*/
 }
 
@@ -276,13 +277,13 @@ margin-bottom: 50px;
 }
 
 .research-topic img {
-  width: 75%;
+  width: 70%;
   margin: 25px auto;
 
 }
 
-#graphene {
-  width: 55%;
+.graphene {
+  width: 50%;
 }
 
 .research-topic p {
@@ -293,7 +294,7 @@ margin-bottom: 50px;
 }
 
 #publication {
-  margin: 30px auto 35px auto;
+  margin: -30px auto 35px auto;
 }
 
 #publication li {
@@ -333,12 +334,6 @@ margin-bottom: 50px;
     background: url('../images/jumbotron_1200.jpg') no-repeat;
     height: 275px;
   }
-
-  #course-details p {
-  width: 95%;
-  padding-left: 20px;
-}
-
 }
 
 /********** Medium devices only **********/
@@ -362,10 +357,6 @@ margin-bottom: 50px;
   .container .jumbotron {
     background: url('../images/jumbotron_768.jpg') no-repeat;
     height: 180px;
-  }
-
-  .research-topic p {
-    font-size: 1.1em;
   }
 
 }
@@ -421,8 +412,12 @@ margin-bottom: 50px;
     padding: 0;
   }
 
-  #about-research h2, #course-details h2, #open-position h2 {
+  #about-research h2, #open-position h2 {
 	font-size: 1.5em;
+  }
+
+  .about-course h2 {
+    font-size: 1.4em;
   }
 
  #open-position h3 {
@@ -438,9 +433,10 @@ margin-bottom: 50px;
 	/*margin-bottom: 0px;*/
   }
 
-.page-topic-details p, #about-me, #about-research p, #open-position p {
-  font-size: 1.1em
-}
+ .page-topic-details p, #about-me, #about-research p, #open-position p, 
+ .research-topic p, .about-course p {
+    font-size: 1.1em;
+  }
 
   .member-name {
 	font-size: 1.1em;
@@ -451,7 +447,10 @@ margin-bottom: 50px;
   .member-details {
 	font-size: 0.85em;
   }
-
+  
+  .graphene {
+   width: 60%;
+  }
 }
 
 /********** Super Extra small devices only **********/
@@ -461,9 +460,13 @@ margin-bottom: 50px;
     font-size: 5.0vw; /* 1vw = 1% of viewport width */
   }
 
-  #about-research h2, #course-details h2, #open-position h2 {
+  #about-research h2, #open-position h2 {
 	font-size: 1.4em;
   }
+
+ .about-course h2 {
+  font-size: 1.2em;
+}
 
  #open-position h3 {
   font-size: 1.1em;
@@ -473,7 +476,8 @@ margin-bottom: 50px;
   	font-size: 0.9em;
   }
 
-.page-topic-details p, #about-me,#about-research p, #open-position p {
+.page-topic-details p, #about-me, #about-research p, #open-position p, 
+.about-course p, .research-topic p {
   font-size: 1.0em
 }
 
