@@ -298,7 +298,7 @@ margin-bottom: 50px;
 }
 
 #publication {
-  margin: -30px auto 35px auto;
+  margin: -20px auto 35px auto;
 }
 
 #publication li {
@@ -325,6 +325,7 @@ margin-bottom: 50px;
   padding-bottom: 15px;
   background-color: #222;
   border-top: 0;
+  border-radius: 0;
 }
 
 /* END FOOTER */
