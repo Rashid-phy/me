@@ -468,6 +468,11 @@ margin-bottom: 50px;
    width: 80%;
   }
 
+.page-topic a, .about-course a , #publication a, .past-std a, #open-position a {
+  color: lightblue; /* # f5f2d0 lightblue */
+  }
+
+
 /*  .container #materials-theory {
     width: 80%;
     height: 146px;
