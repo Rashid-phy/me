@@ -72,6 +72,7 @@ body {
 #just-logo {
   background: url('../images/JUST_logo_100.jpg') no-repeat;
   border-radius: 50px;
+/*  background: url('../images/just2_100.png') no-repeat;*/
   width: 100px;
   height: 100px;
   margin: 0;
@@ -123,6 +124,10 @@ body {
   /*border: 1px solid #61122f;
   opacity: 0.95;*/
 }
+
+/*.active {
+  background: #E7E7E7; #f6b319; #557c3e lightgreen 
+}*/
 
 /* END BODY NAV */
 
@@ -224,11 +229,11 @@ margin-top: -15px;
   /*color: green;*/
 }
 
-#about-research, #open-position {
+.about-research, #open-position {
 margin-bottom: 50px;
 }
 
-#about-research h2, #open-position h2 {
+.about-research h2, #open-position h2 {
   font-size: 2em;
   color: #f6b319;
   font-weight: bold;
@@ -240,10 +245,10 @@ margin-bottom: 50px;
   font-weight: bold;
 }
 
-#about-research p {
+.about-research p {
   width: 95%;
 }
-#about-research p, #open-position p {
+.about-research p, #open-position p {
   font-size: 1.2em;
   text-align: justify;
   margin: 10px auto 40px auto;
@@ -412,7 +417,7 @@ margin-bottom: 50px;
     padding: 0;
   }
 
-  #about-research h2, #open-position h2 {
+  .about-research h2, #open-position h2 {
 	font-size: 1.5em;
   }
 
@@ -433,7 +438,7 @@ margin-bottom: 50px;
 	/*margin-bottom: 0px;*/
   }
 
- .page-topic-list li, .page-topic-details p, #about-me, #about-research p, #open-position p, 
+ .page-topic-list li, .page-topic-details p, #about-me, .about-research p, #open-position p, 
  .research-topic p, .about-course p, #publication li {
     font-size: 1.1em;
   }
@@ -469,7 +474,7 @@ margin-bottom: 50px;
     font-size: 5.0vw; /* 1vw = 1% of viewport width */
   }
 
-  #about-research h2, #open-position h2 {
+  .about-research h2, #open-position h2 {
 	font-size: 1.4em;
   }
 
@@ -481,7 +486,7 @@ margin-bottom: 50px;
   font-size: 1.1em;
  }
 
-.page-topic-list li, .page-topic-details p, #about-me, #about-research p, #open-position p, 
+.page-topic-list li, .page-topic-details p, #about-me, .about-research p, #open-position p, 
 .about-course p, .research-topic p, #publication li {
   font-size: 1.0em
 }
