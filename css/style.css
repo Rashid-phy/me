@@ -201,10 +201,16 @@ margin-top: -15px;
   font-weight: bold;
 }
 
-#office-address li {
+#office-address li, #res-contact li {
   list-style: none; /* square disc circle decimal none */
   padding-bottom: 2px;
   /*line-height: 2;*/
+}
+
+#res-contact p {
+  font-size: 1.35em;
+  font-weight: bold;
+  color: lightgreen;
 }
 
 .about-course {
@@ -441,6 +447,10 @@ margin-bottom: 50px;
  .page-topic-list li, .page-topic-details p, #about-me, .about-research p, #open-position p, 
  .research-topic p, .about-course p, #publication li {
     font-size: 1.1em;
+  }
+
+  #res-contact p {
+    font-size: 1.2em;
   }
 
   .member-name {
