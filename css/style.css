@@ -30,6 +30,7 @@ body {
   /*font-family: 'Oxygen', sans-serif;*/
 }
 
+
 /** HEADER **/
 #header-nav {
   background-color: #f6b319 ; /*#f6b319  #ffb400*/
@@ -163,14 +164,25 @@ margin-top: -15px;
   /*line-height: 2;*/
 }
 
-.page-topic a, .about-course a , #publication a, .past-std a, #open-position a {
+#main-content a {
+  color: #fff;
+  text-decoration: none;
+  }
+
+/*.page-topic a, .about-course a , #publication a, .past-std a, #open-position a {
   color: #fff;
   text-decoration: none;
   }
 
 .page-topic a:hover, .about-course a:hover, #publication a:hover, .past-std a:hover, 
 #open-position a:hover {
-  background:  #f6b319; /* #000 #E7E7E7 #f6b319 #557c3e lightgreen*/ 
+  background:  #f6b319; 
+  color: #000;
+  }*/
+  /* #000 #E7E7E7 #f6b319 #557c3e lightgreen*/ 
+
+#main-content a:hover {
+  background:  #f6b319; 
   color: #000;
   }
 
@@ -468,10 +480,9 @@ margin-bottom: 50px;
    width: 80%;
   }
 
-.page-topic a, .about-course a , #publication a, .past-std a, #open-position a {
+#main-content a {
   color: lightblue; /* # f5f2d0 lightblue */
   }
-
 
 /*  .container #materials-theory {
     width: 80%;
