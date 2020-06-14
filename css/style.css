@@ -237,7 +237,6 @@ margin-top: -15px;
   margin: 5px auto 0 auto;
 }
 
-
 .about-course p {
   font-size: 1.2em;
   font-weight: bold;
@@ -247,7 +246,7 @@ margin-top: -15px;
   /*color: green;*/
 }
 
-.about-research, #open-position {
+.about-research, #open-position  {
 margin-bottom: 50px;
 }
 
