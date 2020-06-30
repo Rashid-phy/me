@@ -331,6 +331,11 @@ margin-bottom: 50px;
   font-size: 0.85em;
 }
 
+#main-content #subscribe {
+  margin-top: -20px;
+  margin-bottom: 0px;
+}
+
 /* END BODY PAGE */
 
 
