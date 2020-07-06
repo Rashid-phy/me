@@ -63,6 +63,7 @@ if [[ $compressDIR == y ]]; then
 #	tar -cf $tarNAME $saveDIR
 	zip -rq $tarNAME $saveDIR
 	echo " "
+	du -sh $saveDIR
 	du -sh $tarNAME
 	echo " "
 	echo "$(date +%R:%S) A tape achieve named $tarNAME is created."
