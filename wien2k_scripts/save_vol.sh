@@ -17,8 +17,6 @@ NAME=${PWD##*/}
 volDATA=$NAME.voldata
 plotVOLcell=$NAME\_cell_vol
 plotVOLchange=$NAME\_vol_change
-sendDIR=$NAME\_vol_opt_send
-saveDIR=$NAME\_vol_opt_saved
 tmpPNG=~/.w2web/$(hostname -f)/tmp/*.png
 
 
@@ -86,8 +84,11 @@ EOF
 
 gnuplot < vplot.gnu
 
+if [[ $plotONLY == y ]]; then exit; fi
+
 echo ""
 read -p "Which structure has lowest total energy? (number only) " volENElow
+
 
 if (( $(echo "$volENElow >= 0" | bc -l ) && $(echo "$volENElow < 10" | bc -l ) )); then
 	structFILE=$NAME\_vol____$volENElow*default.struct
@@ -96,6 +97,7 @@ elif [[ $(echo "$volENElow < 0 " | bc -l ) && $(echo "$volENElow > -10" | bc -l 
 else
 	structFILE=$NAME\_vol*$volENElow*default.struct
 fi
+
 
 if [[ ! -f "$(ls $structFILE 2> /dev/null)" ]]; then
 	echo " "
@@ -107,6 +109,8 @@ else
 	STRUCTURE=`ls $structFILE`
 fi
 
+sendDIR=$NAME\_vol_opt_$volENElow\_send
+saveDIR=$NAME\_vol_opt_$volENElow\_saved
 
 if [[ -d "$sendDIR" ]]; then
 	echo "A folder named '$sendDIR' already exits!"
@@ -125,7 +129,13 @@ else
 	mkdir $sendDIR
 fi
 
-for ii in kgen klist scf scf2 vsp ; do
+for ii in outputnn outputsgroup struct_st outputs inst outputst in* kgen klist outputd ; do
+	sendFILE=$NAME.$ii
+	cp $sendFILE $sendDIR/
+done
+
+
+for ii in scf scf2 vsp ; do
 	sendFILE=$NAME\_vol_*default.$ii
 	cp $sendFILE $sendDIR/
 done
@@ -135,7 +145,6 @@ cp STDOUT $NAME*struct optimize.job $NAME.eosfit* $NAME.outputeos $NAME.vol* $NA
 if [[ -f "$(ls $tmpPNG 2> /dev/null)" ]]; then
 	cp $tmpPNG $sendDIR/
 fi
-
 
 if [[ -d "$saveDIR" ]]; then
 	echo "" 
@@ -159,28 +168,34 @@ fi
 mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.outputeos $NAME.vol $NAME*png $NAME*eps $saveDIR/
 mv STDOUT $NAME*struct $saveDIR
 
-rm -f *.vector*  *.energy* *.broyd*
+for ii in outputnn outputsgroup struct_st outputs inst outputst in* kgen klist outputd ; do
+	sendFILE=$NAME.$ii
+	mv $sendFILE $saveDIR/
+done
+
+
 extraDIR=extra_$(date +%R:%S)
 mkdir $extraDIR
-mv *.* $extraDIR/
-rm -f * 
+
+for x in *; do
+   if ! [ -d "$x" ]; then
+     mv -- "$x" $extraDIR/
+   fi
+done
 
 cp $saveDIR/$plotVOLcell.* .
 cp $saveDIR/$STRUCTURE .
 cp $STRUCTURE $NAME.struct
+
 echo " "
-echo "  $(date)"
-echo " "
-echo "  Plots are saves as '$plotVOLcell.png' and '$plotVOLcell.eps' for future use."
-echo " "
-echo "  '$STRUCTURE' is saved as '$NAME.struct' for SCF calculation."
+echo " $(date)"
+echo " Plots are saves as '$plotVOLcell.png' and '$plotVOLcell.eps' for future use."
+echo " Optimized structure'$STRUCTURE' is saved as '$NAME.struct' for SCF calculation after initialization with proper parameters."
 echo " "
 
 zip -rq $sendDIR.zip $sendDIR
-echo "  A tape achieve named '$sendDIR.zip' is created."
-echo " "
-echo "Necessery file are saved in '$saveDIR' folder."
-echo "All the other files are saved in '$extraDIR' which can be deleted after checking files in '$saveDIR' folder."
+echo " Necessery file are saved in '$saveDIR' folder."
+echo " All the other files are saved in '$extraDIR' which can be deleted after checking files in '$saveDIR' folder."
 echo " "
 
 du -sh .
