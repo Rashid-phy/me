@@ -25,7 +25,7 @@ ls $NAME\_vol*default.scf > aa
 printf "# cell_volume \t vol_change \t  total_energy \n\n" > $volDATA
 printf "\ncell_volume \t vol_change \t  total_energy \n\n" 
 
-for i in {1..10}; do
+for i in {1..20}; do
 	scfFILE=`gawk -v j=$i 'NR==j' aa`
 	volCHANGE=`gawk -v j=$i 'NR==j' aa | sed -s "s/$NAME\_vol//g" | sed -s 's/default.scf//g' | sed -s 's/_//g'`
 	if [[ $volCHANGE == '' ]]; then 
@@ -165,7 +165,7 @@ else
 fi
 
 
-mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.outputeos $NAME.vol $NAME*png $NAME*eps $saveDIR/
+mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps $saveDIR/
 mv STDOUT $NAME*struct $saveDIR
 
 for ii in outputnn outputsgroup struct_st outputs inst outputst in* kgen klist outputd ; do
@@ -192,11 +192,11 @@ echo " $(date)"
 echo " Plots are saves as '$plotVOLcell.png' and '$plotVOLcell.eps' for future use."
 echo " Optimized structure'$STRUCTURE' is saved as '$NAME.struct' for SCF calculation after initialization with proper parameters."
 echo " "
-
-zip -rq $sendDIR.zip $sendDIR
 echo " Necessery file are saved in '$saveDIR' folder."
 echo " All the other files are saved in '$extraDIR' which can be deleted after checking files in '$saveDIR' folder."
 echo " "
+
+zip -rq $sendDIR.zip $sendDIR
 
 du -sh .
 du -sh $extraDIR
