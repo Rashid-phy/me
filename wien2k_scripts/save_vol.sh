@@ -117,7 +117,6 @@ if [[ -d "$sendDIR" ]]; then
 	echo "If you proced all the contents of the folder will be deleted!!"
 	read -p "Do you like to continue?  (y/n) " contentDEL
 	if [[ $contentDEL == y ]]; then
-echo " 88 uncomment the following line "
 		rm -rf $sendDIR/*
 	else
 		echo " "
@@ -152,7 +151,6 @@ if [[ -d "$saveDIR" ]]; then
 	echo "If you proced all the contents of the folder will be deleted!!"
 	read -p "Do you like to continue?  (y/n) " contentDEL
 	if [[ $contentDEL == y ]]; then
-echo " 88 uncomment the following line "
 		rm -rf $saveDIR/*
 	else
 		echo " "

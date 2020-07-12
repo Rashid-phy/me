@@ -1,0 +1,42 @@
+**********************************
+**	Copyright © 2020 Dr Rashid	**
+**	just.edu.bd/t/rashid		**
+**	tiny.cc/rashid				**
+**	tiny.cc/w2k					**
+**********************************
+
+To install htop type the following commands in terminal (internet connectin required):
+
+	sudo apt update
+	sudo apt install htop
+
+** The default setting in Ubuntu is swappiness=60 **
+
+You can know the value of swappiness in your laptop/pc by typing the following command in terminal:
+
+	cat /proc/sys/vm/swappiness
+
+To change the default swappiness edit /etc/sysctl.conf file by typing the following command in terminal: 
+
+	sudo vi /etc/sysctl.conf
+
+At the end of the file add the following line:
+
+	vm.swappiness = 20
+		
+*** To save first press 'ESC' then type ':w!' finally press 'ENTER' ***
+*** To quit typr ':q' then press 'ENTER' ***
+
+To know the number of core/thread used by WIEN2k in your laptop/pc use the following command in terminal: 
+
+	grep 'OMP_NUM_THREADS' ~/.bashrc
+
+To change the number of core/thread used by WIEN2k edit ~/.bashrc file by typing the following command in terminal: 
+
+	gedit ~/.bashrc &
+	
+look for the line containg 'OMP_NUM_THREADS' and change the value as you like.
+
+Save and close the file and restart your laptop/pc. 
+
+
