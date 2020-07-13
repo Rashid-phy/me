@@ -1,9 +1,9 @@
-**********************************
-**	Copyright © 2020 Dr Rashid	**
-**	just.edu.bd/t/rashid		**
-**	tiny.cc/rashid				**
-**	tiny.cc/w2k					**
-**********************************
+************************************
+**   Copyright © 2020 Dr Rashid   **
+**   just.edu.bd/t/rashid         **
+**   tiny.cc/rashid               **
+**   tiny.cc/w2k                  **
+************************************
 
 To install htop type the following commands in terminal (internet connectin required):
 
