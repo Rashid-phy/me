@@ -23,14 +23,17 @@ You can know the value of swappiness in your laptop/pc by typing the following c
 
 To change the default swappiness edit /etc/sysctl.conf file by typing the following command in terminal: 
 
-	sudo vi /etc/sysctl.conf
+	sudo gedit /etc/sysctl.conf
 
 At the end of the file add the following line:
 
 	vm.swappiness = 20
-		
+	
+*** If you use vi to edit the file then REDA the following 4 lines first ***		
 *** To save first press 'ESC' then type ':w!' finally press 'ENTER' ***
-*** To quit typr ':q' then press 'ENTER' ***
+*** To quit type after saving ':q' then press 'ENTER' ***
+*** To quit type without saving press 'ESC' then type ':q!' finally press 'ENTER' ***
+
 
 To know the number of core/thread used by WIEN2k in your laptop/pc use the following command in terminal: 
 
