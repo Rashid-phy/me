@@ -3,13 +3,19 @@
 echo ""
 echo "************************************"
 echo "*                                  *"
-echo "*   Script by Dr. Rashid @ 2020    *"
+echo "*   Copyright © 2020 Dr Rashid     *"
+echo "*  WIEN2k tutorials: tiny.cc/w2k   *" 
 echo "*                                  *" 
 echo "************************************"
 echo ""
 
+## Change the following values if you need so!
+## If you are not sure, leave them as they are!!
 VALUE_EC="0.00001"
 VALUE_CC="0.0001"
+
+## This is the maximum SCF cycle value. 
+## Usually SCF calculation finishes way before this.
 ITERATION="500"
 
 
@@ -20,9 +26,14 @@ if [[ $1 == c ]]; then
 	exit
 fi
 
-echo "Converging values: ec = $VALUE_EC and cc = $VALUE_CC "
-read -p "Do you want to continue? (y/n) " conCal
-if [[ $conCal != y ]]; then exit; fi
+echo "Default converging values: ec = $VALUE_EC and cc = $VALUE_CC "
+read -p "Do you want to continue with these values? (y/n) " conCal
+if [[ $conCal != y ]]; then
+	echo ""
+	echo "Change default values in the script then run agian." 
+	echo ""
+	exit 
+fi
 
 rm -f *.broy* STDOUT
 echo ""
