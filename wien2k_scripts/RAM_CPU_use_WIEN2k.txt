@@ -34,6 +34,9 @@ At the end of the file add the following line:
 *** To quit type after saving ':q' then press 'ENTER' ***
 *** To quit type without saving press 'ESC' then type ':q!' finally press 'ENTER' ***
 
+To apply the change restart your pc/laptop or use the following command in terminal: 
+
+	sudo sysctl -p
 
 To know the number of core/thread used by WIEN2k in your laptop/pc use the following command in terminal: 
 
@@ -45,6 +48,12 @@ To change the number of core/thread used by WIEN2k edit ~/.bashrc file by typing
 	
 look for the line containg 'OMP_NUM_THREADS' and change the value as you like.
 
-Save and close the file and restart your laptop/pc. 
+Save and close the file. To apply the change restart your laptop/pc to apply the change. 
+You may use the following command in terminal: 
 
+	source ~/.bashrc
+
+This may not work if w2web is already running. Its better to restart your laptop/pc.
+
+***** Thank you! Happy computation!! *****
 

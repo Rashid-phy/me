@@ -89,7 +89,10 @@ if [[ $plotONLY == y ]]; then exit; fi
 
 echo ""
 read -p "Which structure has lowest total energy? (number only) " volENElow
-
+if [[ $volENElow == '' ]]; then
+	echo "A poper input need to be provided! Aborted"
+	exit
+fi
 
 if (( $(echo "$volENElow >= 0" | bc -l ) && $(echo "$volENElow < 10" | bc -l ) )); then
 	structFILE=$NAME\_vol____$volENElow*default.struct
@@ -129,7 +132,7 @@ else
 	mkdir $sendDIR
 fi
 
-for ii in outputnn outputsgroup struct_st outputs inst outputst in* kgen klist outputd ; do
+for ii in outputnn outputsgroup struct_st outputs outputst kgen klist outputd ; do
 	sendFILE=$NAME.$ii
 	cp $sendFILE $sendDIR/
 done
@@ -140,7 +143,7 @@ for ii in scf scf2 vsp ; do
 	cp $sendFILE $sendDIR/
 done
 cp ':eplot' $sendDIR/$NAME\_vol.eplot
-cp STDOUT $NAME*struct optimize.job $NAME.eosfit* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps vplot.gnu $sendDIR/
+cp STDOUT $NAME*struct optimize.job $NAME.eosfit* $NAME.in* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps vplot.gnu $sendDIR/
 
 if [[ -f "$(ls $tmpPNG 2> /dev/null)" ]]; then
 	cp $tmpPNG $sendDIR/
@@ -164,10 +167,10 @@ else
 fi
 
 
-mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps $saveDIR/
+mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.in* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps $saveDIR/
 mv STDOUT $NAME*struct $saveDIR
 
-for ii in outputnn outputsgroup struct_st outputs inst outputst in* kgen klist outputd ; do
+for ii in outputnn outputsgroup struct_st outputs outputst kgen klist outputd ; do
 	sendFILE=$NAME.$ii
 	mv $sendFILE $saveDIR/
 done
