@@ -167,6 +167,7 @@ for ii in scf scf2 vsp ; do
 	cp $sendFILE $sendDIR/
 done
 cp ':eplot' $sendDIR/$NAME\_vol.eplot
+cp ':log' $sendDIR/$NAME.tlogf
 cp STDOUT optimize.job vplot.gnu $sendDIR/
 cp $NAME*struct $NAME.eosfit* $NAME.in* $NAME.vol* $NAME*png $NAME*eps $fitDATA $sendDIR/
 

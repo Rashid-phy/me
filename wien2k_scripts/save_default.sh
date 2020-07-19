@@ -46,6 +46,8 @@ if [[ -s $NAME.klist_band ]]; then
 	cp  $NAME.klist_band  $saveDIR
 fi
 
+cp ':log' $saveDIR/$NAME.tlogf
+
 rm -f *.vector*  *.energy* *.broyd*
 
 du -sh $saveDIR
