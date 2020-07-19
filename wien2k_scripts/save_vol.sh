@@ -9,13 +9,10 @@ echo "*                                  *"
 echo "************************************"
 echo ""
 
-## the ploting can also be done with the following command 
-## eplot_lapw -t vol -a " "
-
-#sudo apt-get install zip
 
 NAME=${PWD##*/}
 volDATA=$NAME.voldata
+fitDATA=$NAME.fitdata
 plotVOLcell=$NAME\_cell_vol
 plotVOLchange=$NAME\_vol_change
 tmpPNG=~/.w2web/$(hostname -f)/tmp/*.png
@@ -54,38 +51,64 @@ set	linetype	cycle	8
 EOF
 fi
 
+if [[ -f $NAME.vol && ! -f $NAME.vol_original ]]; then
+	mv $NAME.vol $NAME.vol_original
+fi
+
+printf "y \n \n \n " > eosfit.data
+	
+if [[ -f $NAME.eosfit ]]; then
+	mv $NAME.eosfit  $NAME.eosfit_original
+	gawk 'NR>2 {print $2 "\t\t" $3}' $NAME.voldata > $NAME.vol
+	x eosfit < eosfit.data > /dev/null 2>&1
+	mv $NAME.eosfit  $NAME.eosfit_change
+	mv $NAME.eosfit_original  $NAME.eosfit
+else
+	gawk 'NR>2 {print $2 "\t\t" $3}' $NAME.voldata > $NAME.vol
+	x eosfit < eosfit.data > /dev/null 2>&1
+	mv $NAME.eosfit  $NAME.eosfit_change
+	gawk 'NR>2 {print $1 "\t\t" $3}' $NAME.voldata > $NAME.vol
+	x eosfit < eosfit.data > /dev/null 2>&1
+fi
+
+printf "# cell_volume \t vol_change \t  total_energy \n\n" > $fitDATA
+paste $NAME.eosfit $NAME.eosfit_change > eosfit.data 
+gawk '{print $1 "\t\t" $4 "\t\t" $2}' eosfit.data >> $fitDATA
+
+
 SETpng='set term png enhanced size 1000,800 font "Times-Roman, 20"'
 SETeps='set term postscript eps enhanced color font "Times-Roman, 20" '
 
 cat > vplot.gnu << EOF
 set linetype    1   linewidth	4   pt 2   lc rgb 'red' 
 set	linetype	2	linewidth	2	lc	rgb	"forest-green"	
-$SETpng
-set output "$plotVOLcell.png"
+
 set format y "%.4f"
 set title "$NAME: Murnaghan"
 set xlabel "Volume [a.u.^3]"
 set ylabel "Energy [Ry]"
+$SETpng
+set output "$plotVOLcell.png"
 plot "$volDATA" u 1:3 w p notitle , "$NAME.eosfit"  w l notitle
 $SETeps
 set output "$plotVOLcell.eps"
 plot "$volDATA" u 1:3 w p notitle, "$NAME.eosfit"  w l notitle
 
-$SETpng
-set output "$plotVOLchange.png"
 set format y "%.4f"
 set title "$NAME: Murnaghan"
 set xlabel "Change in volume [%]"
 set ylabel "Energy [Ry]"
-plot "$volDATA" u 2:3 w p notitle
+$SETpng
+set output "$plotVOLchange.png"
+plot "$volDATA" u 2:3 w p notitle, "$fitDATA" u 2:3 w l notitle
 $SETeps
 set output "$plotVOLchange.eps"
-plot "$volDATA" u 2:3 w p notitle
+plot "$volDATA" u 2:3 w p notitle, "$fitDATA" u 2:3 w l notitle
 EOF
 
 gnuplot < vplot.gnu
 
-if [[ $plotONLY == y ]]; then exit; fi
+xdg-open $plotVOLchange.png &
 
 echo ""
 read -p "Which structure has lowest total energy? (number only) " volENElow
@@ -93,6 +116,7 @@ if [[ $volENElow == '' ]]; then
 	echo "A poper input need to be provided! Aborted"
 	exit
 fi
+
 
 if (( $(echo "$volENElow >= 0" | bc -l ) && $(echo "$volENElow < 10" | bc -l ) )); then
 	structFILE=$NAME\_vol____$volENElow*default.struct
@@ -132,7 +156,7 @@ else
 	mkdir $sendDIR
 fi
 
-for ii in outputnn outputsgroup struct_st outputs outputst kgen klist outputd ; do
+for ii in outputnn outputsgroup struct_st outputs outputst kgen klist outputd outputeos ; do
 	sendFILE=$NAME.$ii
 	cp $sendFILE $sendDIR/
 done
@@ -143,7 +167,8 @@ for ii in scf scf2 vsp ; do
 	cp $sendFILE $sendDIR/
 done
 cp ':eplot' $sendDIR/$NAME\_vol.eplot
-cp STDOUT $NAME*struct optimize.job $NAME.eosfit* $NAME.in* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps vplot.gnu $sendDIR/
+cp STDOUT optimize.job vplot.gnu $sendDIR/
+cp $NAME*struct $NAME.eosfit* $NAME.in* $NAME.vol* $NAME*png $NAME*eps $fitDATA $sendDIR/
 
 if [[ -f "$(ls $tmpPNG 2> /dev/null)" ]]; then
 	cp $tmpPNG $sendDIR/
@@ -167,10 +192,10 @@ else
 fi
 
 
-mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.in* $NAME.outputeos $NAME.vol* $NAME*png $NAME*eps $saveDIR/
+mv $NAME\_vol_*_default.* optimize.job $NAME.eosfit* $NAME.in* $NAME.vol* $NAME*png $NAME*eps $fitDATA $saveDIR/
 mv STDOUT $NAME*struct $saveDIR
 
-for ii in outputnn outputsgroup struct_st outputs outputst kgen klist outputd ; do
+for ii in outputnn outputsgroup struct_st outputs outputst kgen klist outputd outputeos ; do
 	sendFILE=$NAME.$ii
 	mv $sendFILE $saveDIR/
 done
@@ -178,6 +203,7 @@ done
 
 extraDIR=extra_$(date +%R:%S)
 mkdir $extraDIR
+#mv *.* $extraDIR/
 
 for x in *; do
    if ! [ -d "$x" ]; then
@@ -185,17 +211,17 @@ for x in *; do
    fi
 done
 
-cp $saveDIR/$plotVOLcell.* .
+cp $saveDIR/*.png .
 cp $saveDIR/$STRUCTURE .
 cp $STRUCTURE $NAME.struct
 
 echo " "
-echo " $(date)"
-echo " Plots are saves as '$plotVOLcell.png' and '$plotVOLcell.eps' for future use."
-echo " Optimized structure'$STRUCTURE' is saved as '$NAME.struct' for SCF calculation after initialization with proper parameters."
+echo "  $(date)"
+echo "  Plots are saves as '$plotVOLcell.png' and '$plotVOLcell.eps' for future use."
+echo "  '$STRUCTURE' is saved as '$NAME.struct' for SCF calculation."
 echo " "
-echo " Necessery file are saved in '$saveDIR' folder."
-echo " All the other files are saved in '$extraDIR' which can be deleted after checking files in '$saveDIR' folder."
+echo "Necessery file are saved in '$saveDIR' folder."
+echo "All the other files are saved in '$extraDIR' which can be deleted after checking files in '$saveDIR' folder."
 echo " "
 
 zip -rq $sendDIR.zip $sendDIR

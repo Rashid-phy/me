@@ -9,11 +9,36 @@ echo "*                                  *"
 echo "************************************"
 echo ""
 
-
 # NOT suitable if XMCD (X-ray magnetic circular dichroism) calculation is included 
 # can also be done by running "opticplot_lapw"
 
 NAME=${PWD##*/}
+INOP=$NAME.inop
+
+noCOLUMN=`grep 'number of choices' $INOP | gawk '{print $1}'`
+noLINE=`grep -n 'number of choices' $INOP | gawk '{print $1}'`
+noLINE=${noLINE%:2}
+
+if [[ $noCOLUMN != 2 ]]; then
+	echo "The script only works with number of column = 2 in $INOP file."
+	echo "Your choice is inconsistant with the script. Aborted!"
+	echo ""
+	exit
+fi
+
+Rexx=`gawk -v j=$(($noLINE + 1)) 'NR==j {print $1}' $INOP`
+Rezz=`gawk -v j=$(($noLINE + 2)) 'NR==j {print $1}' $INOP`
+
+if [[ $Rexx != 1 || $Rezz != 3 ]]; then
+	echo "Inconsistant choices in $INOP. The script only works with following choices:"
+	echo ""
+	echo "2             number of choices (columns in ...."
+	echo "1             Re xx"
+	echo "3             Re zz"
+#	echo "OFF           ON/OFF   writes MME to unit 4"
+	echo ""
+	exit
+fi
 
 COUNT=0
 for ii in  absorp  eloss  epsilon  reflectivity  refraction  sigmak ; do
@@ -208,319 +233,11 @@ echo "plot '$NAME.$FILE' u 1:4 w l title '$FILE\_xx', \
 gnuplot < gplot.gnu
 
 
-if [[ -f "$NAME.elossup" ]]; then     ### upto reference xx_zz_up_dn
-
-# plot eloss UP
-FILE='elossup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Electron energy loss (arb. units)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'eloss\_xx\_up', \
-				''		 u 1:3 w l title 'eloss\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'eloss\_xx\_up', \
-				''		 u 1:3 w l title 'eloss\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot eloss DOWN
-FILE='elossdn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Electron energy loss (arb. units)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'eloss\_xx\_dn', \
-				''		 u 1:3 w l title 'eloss\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'eloss\_xx\_dn', \
-				''		 u 1:3 w l title 'eloss\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot epsilon REAL UP
-FILE='epsilonup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Real dielectric tensor'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.RE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_epsilon\_xx\_up', \
-				''		 u 1:4 w l title 'Re\_epsilon\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.RE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_epsilon\_xx\_up', \
-				''		 u 1:4 w l title 'Re\_epsilon\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot epsilon REAL DOWN
-FILE='epsilondn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Real dielectric tensor'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.RE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_epsilon\_xx\_dn', \
-				''		 u 1:4 w l title 'Re\_epsilon\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.RE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_epsilon\_xx\_dn', \
-				''		 u 1:4 w l title 'Re\_epsilon\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot epsilon IMAGINARY UP
-FILE='epsilonup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Imaginary dielectric tensor'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.IM.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_epsilon\_xx\_up', \
-				''		 u 1:5 w l title 'Im\_epsilon\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.IM.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_epsilon\_xx\_up', \
-				''		 u 1:5 w l title 'Im\_epsilon\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot epsilon IMAGINARY DOWN
-FILE='epsilondn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Imaginary dielectric tensor'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.IM.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_epsilon\_xx\_dn', \
-				''		 u 1:5 w l title 'Im\_epsilon\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.IM.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_epsilon\_xx\_dn', \
-				''		 u 1:5 w l title 'Im\_epsilon\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot conductivity REAL UP
-FILE='sigmakup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Real optical conductivity (10^{15}/sec)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.conductivity.REup.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_up', \
-				''		 u 1:4 w l title 'Re\_sigma\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.conductivity.REup.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_up', \
-				''		 u 1:4 w l title 'Re\_sigma\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot conductivity REAL DOWN
-FILE='sigmakdn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Real optical conductivity (10^{15}/sec)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.conductivity.REdn.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_dn', \
-				''		 u 1:4 w l title 'Re\_sigma\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.conductivity.REdn.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_dn', \
-				''		 u 1:4 w l title 'Re\_sigma\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot conductivity IMAGINARY UP
-FILE='sigmakup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Imaginary optical conductivity (10^{15}/sec)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.conductivity.IMup.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_sigma\_xx\_up', \
-				''		 u 1:5 w l title 'Im\_sigma\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.conductivity.IMup.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_sigma\_xx\_up', \
-				''		 u 1:5 w l title 'Im\_sigma\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot conductivity IMAGINARY DOWN
-FILE='sigmakdn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Imaginary optical conductivity (10^{15}/sec)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.conductivity.IMdn.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_sigma\_xx\_dn', \
-				''		 u 1:5 w l title 'Im\_sigma\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.conductivity.IMdn.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'Im\_sigma\_xx\_dn', \
-				''		 u 1:5 w l title 'Im\_sigma\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot refraction UP
-FILE='refractionup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Refractive index'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_xx\_up', \
-				''		 u 1:3 w l title 'ref\_ind\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_xx\_up', \
-				''		 u 1:3 w l title 'ref\_ind\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot refraction DOWN
-FILE='refractiondn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Refractive index'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_xx\_dn', \
-				''		 u 1:3 w l title 'ref\_ind\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_xx\_dn', \
-				''		 u 1:3 w l title 'ref\_ind\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot reflectivity UP
-FILE='reflectivityup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Optical reflectivity'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'reflect\_xx\_up', \
-				''		 u 1:3 w l title 'reflect\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'reflect\_xx\_up', \
-				''		 u 1:3 w l title 'reflect\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot reflectivity DOWN
-FILE='reflectivitydn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Optical reflectivity'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'reflect\_xx\_dn', \
-				''		 u 1:3 w l title 'reflect\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'reflect\_xx\_dn', \
-				''		 u 1:3 w l title 'reflect\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot conductivity REAL-UP in [1 / (Ohm cm)] unit **from absorp**
-FILE='absorpup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Real optical conductivity (1/(Ohm-cm))'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.conductivity_absorp.REup.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_up', \
-				''		 u 1:3 w l title 'Re\_sigma\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.conductivity_absorp.REup.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_up', \
-				''		 u 1:3 w l title 'Re\_sigma\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot conductivity REAL-DOWN in [1 / (Ohm cm)] unit **from absorp**
-FILE='absorpdn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Real optical conductivity (1/(Ohm-cm))'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.conductivity_absorp.REdn.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_dn', \
-				''		 u 1:3 w l title 'Re\_sigma\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.conductivity_absorp.REdn.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:2 w l title 'Re\_sigma\_xx\_dn', \
-				''		 u 1:3 w l title 'Re\_sigma\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot absorption coefficient UP
-FILE='absorpup'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Absorption coefficient (10^4/cm)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:4 w l title 'absorp\_xx\_up', \
-				''		 u 1:5 w l title 'absorp\_zz\_up'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:4 w l title 'absorp\_xx\_up', \
-				''		 u 1:5 w l title 'absorp\_zz\_up'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-# plot absorption coefficient DOWN
-FILE='absorpdn'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Absorption coefficient (10^4/cm)'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.$FILE.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:4 w l title 'absorp\_xx\_dn', \
-				''		 u 1:5 w l title 'absorp\_zz\_dn'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.$FILE.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:4 w l title 'absorp\_xx\_dn', \
-				''		 u 1:5 w l title 'absorp\_zz\_dn'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-fi    ### upto reference xx_zz_up_dn
-
-
 echo "Done! Images are saved both as *.eps and *.png files." > gplot.gnu
 cd ..
-
+du -sh $saveDIR
+echo ""
+echo "  All done! Check *.eps and *.png files in $saveDIR!!" 
 echo " "
-echo "		All done! Check *.eps and *.png files in $saveDIR!!" 
+
 
