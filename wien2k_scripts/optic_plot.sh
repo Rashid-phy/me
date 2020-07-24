@@ -12,6 +12,15 @@ echo ""
 # NOT suitable if XMCD (X-ray magnetic circular dichroism) calculation is included 
 # can also be done by running "opticplot_lapw"
 
+bandGAP=`grep ':GAP (global)   :' $NAME.scf | tail -n 1  | gawk '{print $7}'`
+if [[ $bandGAP == 0.0 ]]; then
+	echo "Formula to calculate plasma frequency in the case of spin polarization for metal:"  
+	echo "w_pl = sqrt( w_pl(up-spin)**2 + w_pl(dn-spin)**2 )"
+	echo ""
+	echo "Make sure you have calculated the plasma frequency correctly."
+	echo ""
+fi
+
 NAME=${PWD##*/}
 INOP=$NAME.inop
 
