@@ -336,6 +336,15 @@ margin-bottom: 50px;
   margin-bottom: 0px;
 }
 
+
+.License-note p {
+  font-size: 1.1em;
+  text-align: justify;
+  width: 95%;
+  margin: -20px auto 30px auto;
+}
+
+
 /* END BODY PAGE */
 
 
@@ -470,6 +479,10 @@ margin-bottom: 50px;
     font-size: 1.1em;
   }
 
+ .License-note p {
+  font-size: 1.0em;
+  }
+
   #res-contact p {
     font-size: 1.2em;
   }
@@ -491,6 +504,8 @@ margin-bottom: 50px;
 #main-content a {
   color: lightblue; /* # f5f2d0 lightblue */
   }
+
+
 
 /*  .container #materials-theory {
     width: 80%;

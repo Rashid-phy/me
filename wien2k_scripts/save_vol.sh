@@ -8,7 +8,8 @@ echo "*  WIEN2k tutorials: tiny.cc/w2k   *"
 echo "*                                  *" 
 echo "************************************"
 echo ""
-
+echo "The script is free; you can redistribute it and/or modify it under the terms of the GNU General Public License. The script is distributed in the hope that it will be helpful, but WITHOUT ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE."
+echo ""
 
 NAME=${PWD##*/}
 volDATA=$NAME.voldata
