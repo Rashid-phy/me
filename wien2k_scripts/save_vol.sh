@@ -121,8 +121,8 @@ fi
 
 if (( $(echo "$volENElow >= 0" | bc -l ) && $(echo "$volENElow < 10" | bc -l ) )); then
 	structFILE=$NAME\_vol____$volENElow*default.struct
-elif [[ $(echo "$volENElow < 0 " | bc -l ) && $(echo "$volENElow > -10" | bc -l ) ]]; then
-	structFILE=$NAME\_vol___$volENElow*default.struct
+#elif [[ $(echo "$volENElow < 0 " | bc -l ) && $(echo "$volENElow > -10" | bc -l ) ]]; then
+#	structFILE=$NAME\_vol___$volENElow*default.struct
 else
 	structFILE=$NAME\_vol*$volENElow*default.struct
 fi
