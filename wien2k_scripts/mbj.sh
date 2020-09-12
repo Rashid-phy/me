@@ -30,7 +30,7 @@ if [[ $conCal != y ]]; then
 	exit 
 fi
 
-rm -f *.broy* STDOUT
+rm -f *.broy* STDOUT *.scf *.vector*
 echo ""
 read -p "Perform spin-polarized calculation? (y/n) " userFEED
 
