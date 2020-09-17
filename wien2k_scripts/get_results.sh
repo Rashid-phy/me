@@ -7,6 +7,8 @@ echo "*   Script by Dr. Rashid @ 2020    *"
 echo "*                                  *" 
 echo "************************************"
 echo ""
+echo "The script is free; you can redistribute it and/or modify it under the terms of the GNU General Public License. The script is distributed in the hope that it will be helpful, but WITHOUT ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE."
+echo ""
 
 #NAME=${PWD##*/}  
 #SCF=$NAME.scf
@@ -67,7 +69,7 @@ if [[ $SCF == '' ]]; then
 	echo ""
 	exit
 elif [[ -s "$SCF" ]]; then
-	echo "----> $(pwd)/$SCF is selected."
+	echo "$(pwd)/$SCF is selected."
 elif [[ ! -s "$SCF" ]]; then
 	echo "----> $SCF is NOT available or has NO date in it."
 #	echo " ***** Make sure you are in right directory. *****"
@@ -75,13 +77,30 @@ elif [[ ! -s "$SCF" ]]; then
 	exit
 fi
 
-echo " "
+#echo " "
+if [[ -s "$NAME.in0" ]]; then
+	aa=`grep 'TOT' $NAME.in0 | gawk '{print $2}'`
+	echo "Exchange-correlation potential: $aa"
+else
+	echo "$NAME.in0 is not available"
+fi
 
-if [[ -f "$NAME.klist" ]]; then
+
+if [[ -s "$NAME.klist" ]]; then
 	currentKmesh=`gawk 'NR==1 {print $9, $10, $11, $12 $13, $14, $15}' $NAME.klist`
 	echo "k-mesh details are : $currentKmesh"
 else
 	echo "$NAME.klist is not available"
+fi
+
+aa=`grep ':LABEL4:' $SCF | tail -n 1 | cut -c20-`
+echo "Calculation $aa"
+
+if [[ -s "$NAME.dayfile" ]]; then
+	aa=`grep cycle $NAME.dayfile | tail -n 1 | cut -c5-`
+	echo "Calculation ended at $aa"
+else
+	echo "$NAME.dayfile is not available"
 fi
 
 echo " "
@@ -92,8 +111,8 @@ grep :ENE $SCF | tail -n 1
 echo " "
 grep 'F E R M I' $SCF | tail -n 1
 echo " "
-grep ':LABEL4:' $SCF | tail -n 1
-echo " "
+#grep ':LABEL4:' $SCF | tail -n 1
+#echo " "
 #echo "---> ec == energy convergence"
 #echo "---> cc == charge convergence "
 #echo " "
