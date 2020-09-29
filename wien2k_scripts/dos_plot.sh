@@ -38,13 +38,13 @@ plot    "test.dos1ev" using 1:2 title "total DOS"  w l
 #replot  "test.dos2ev" using 1:2 title "O p"        w l 
 
 
-#plot "test.dos1ev" using 1:2     title "up spin"   w l, \
-#     "test.dos1ev" using 1:(-$2) title "down spin" w l 
+#plot "test.dos1evup" using 1:2     title "up spin"   w l, \
+#     "test.dos1evdn" using 1:(-$2) title "down spin" w l 
 
-#plot   "test.dos1ev" using 1:2     title "up spin"   w l
-#replot "test.dos1ev" using 1:(-$2) title "down spin" w l 
+#plot   "test.dos1evup" using 1:2     title "up spin"   w l
+#replot "test.dos1evdn" using 1:(-$2) title "down spin" w l 
 
-#replot  "test.dos1ev" using 1:(0) 	notitle w d
+#replot  "test.dos1evup" using 1:(0) 	notitle w d
 
 unset multiplot
 
