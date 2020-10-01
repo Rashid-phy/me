@@ -11,7 +11,7 @@ set	linetype	4	linewidth	3	lc	rgb	"cyan"
 set	linetype	5	linewidth	3	lc	rgb	"dark-red"		
 set	linetype	6	linewidth	3	lc	rgb	"dark-orange"
 set	linetype	7	linewidth	3	lc	rgb	"goldenrod"
-set	linetype	8	linewidth	3
+set	linetype	8	linewidth	3	lc	rgb	"yellow"
 set	linetype	cycle	8
 
 
@@ -46,12 +46,13 @@ plot    "test.dos1ev" using 1:2 title "total DOS"  w l
 
 #replot  "test.dos1evup" using 1:(0) 	notitle w d
 
-unset multiplot
+#unset multiplot
 
 set term postscript eps enhanced color font "Times-Roman, 20"
 set output "dos_plot.eps"
 replot
 
 
+!xdg-open dos_plot.png &
 
 

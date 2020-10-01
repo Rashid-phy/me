@@ -11,5 +11,5 @@
   <p>Email: rashid@just.edu.bd</p>
   <p>Visit: <a href="https://rashid-phy.github.io/me/index.html">https://rashid-phy.github.io/me/index.html</a></p>
   
-  </body>   
+  </body>
 </html>
