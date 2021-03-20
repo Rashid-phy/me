@@ -3,7 +3,6 @@
 **   Copyright © 2020 Dr Rashid   **
 **                                **
 **   just.edu.bd/t/rashid         **
-**                                **
 **   tiny.cc/rashid               **
 **                                **
 **   Tutorials: tiny.cc/w2k       **
@@ -29,7 +28,7 @@ At the end of the file add the following line:
 
 	vm.swappiness = 20
 	
-*** If you use vi to edit the file then REDA the following 4 lines first ***		
+*** *** *** *** To edit the file with vi from terminal *** *** *** ***		
 *** To save first press 'ESC' then type ':w!' finally press 'ENTER' ***
 *** To quit type after saving ':q' then press 'ENTER' ***
 *** To quit type without saving press 'ESC' then type ':q!' finally press 'ENTER' ***
@@ -55,5 +54,5 @@ You may use the following command in terminal:
 
 This may not work if w2web is already running. Its better to restart your laptop/pc.
 
-***** Thank you! Happy computation!! *****
+***** Thank you! Happy computing!! *****
 
