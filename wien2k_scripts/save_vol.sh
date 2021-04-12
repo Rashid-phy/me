@@ -11,9 +11,20 @@ echo ""
 echo "The script is free; you can redistribute it and/or modify it under the terms of the GNU General Public License. The script is distributed in the hope that it will be helpful, but WITHOUT ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE."
 echo ""
 
-
 ## the ploting can also be done with the following command 
 ## eplot_lapw -t vol -a " "
+
+cat << EOF
+** The script is only to save results from volume 
+optimization using WIEN2k with constant a:b:c ratio. **
+
+  ENTER to continue 
+  q to quit
+  
+EOF
+
+read -p "               " userFEED
+if [[ $userFEED == q ]]; then exit; fi
 
 
 NAME=${PWD##*/}
