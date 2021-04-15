@@ -15,17 +15,15 @@ echo ""
 ## eplot_lapw -t vol -a " "
 
 cat << EOF
-** The script is only to save results from volume 
-optimization using WIEN2k with constant a:b:c ratio. **
+*** The script is only useful to save results from volume 
+optimization using WIEN2k with constant a:b:c ratio. ****
 
   ENTER to continue 
   q to quit
-  
 EOF
 
-read -p "               " userFEED
+read -p "                " userFEED
 if [[ $userFEED == q ]]; then exit; fi
-
 
 NAME=${PWD##*/}
 volDATA=$NAME.voldata
@@ -34,6 +32,14 @@ plotVOLcell=${NAME}_cell_vol
 plotVOLchange=${NAME}_vol_change
 tmpPNG=~/.w2web/$(hostname -f)/tmp/*.png
 
+na=`ls ${NAME}_vol*default.scf | wc -l`
+
+if [[ $na -le 2 ]]; then
+   echo "Number of available SCF files are $na"
+   echo "There is no sufficient files to plot the Energy vs Volume graph!"
+   echo ""
+   exit
+fi
 
 ls ${NAME}_vol*default.scf > aa
 
