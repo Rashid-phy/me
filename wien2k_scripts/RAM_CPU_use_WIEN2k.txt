@@ -52,7 +52,9 @@ You may use the following command in terminal:
 
 	source ~/.bashrc
 
-This may not work if w2web is already running. Its better to restart your laptop/pc.
+This may not work if w2web is already running. You may need to restart w2web. Its better to restart your laptop/pc.
+
+ *** To change the value of OMP_NUM_THREADS you may use the script # WS09 from the Script section. ***
 
 ***** Thank you! Happy computing!! *****
 
