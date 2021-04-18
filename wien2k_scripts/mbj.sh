@@ -91,6 +91,50 @@ elif [[ $spinCAL == n ]]; then
 	srtingLAPW=run_lapw
 fi
 
+
+PPP=''
+if [[ -s ".machines" ]]; then
+   echo ""
+   read -p "Do you like to do parallel calculation? (y/n) " doPPP
+   if [[ $doPPP == y ]]; then
+      PPP='-p'
+   elif  [[ $doPPP == n ]]; then
+      rm -vf .machine*
+   else
+      echo "Wrong input! Try again!!"
+      exit
+   fi
+fi
+
+
+cat << EOF
+
+You can use different parameterizations of mBJ:
+0: Original mBJ (Tran and Blaha, PRL 102, 226401 (2009)) (default)
+1: New (Koller et al., PRB 85, 155109 (2012))
+2: For band gaps up to 7 eV (Koller et al., PRB 85, 155109 (2012))
+3: Unmodified BJ (Becke and Johnson, JCP 124, 221101 (2006))
+4: For perovskites (Jishi et al., JPCA 118, 28344 (2014))
+
+EOF
+
+read -p " enter 0/1/2/3/4 or press enter for default: " POTchoice
+
+if [[ $POTchoice == 1 ]] || [[ $POTchoice == 2 ]] || [[ $POTchoice == 3 ]] || [[ $POTchoice == 4 ]] ; then
+cat > mbj.info << EOF
+$POTchoice
+
+EOF
+
+else
+
+cat > mbj.info << EOF
+0
+
+EOF
+fi
+
+
 rm -fv $NAME.broy* STDOUT $NAME.scf* $NAME.vector* $NAME.insp
 TTT=`date`
 
@@ -98,13 +142,13 @@ echo " "
 init_mbj_lapw |& tee -a STDOUT
 
 echo " "
-$srtingLAPW -i 1 -NI |& tee -a STDOUT
+$srtingLAPW $PPP -i 1 -NI |& tee -a STDOUT
 
 echo " "
-init_mbj_lapw |& tee -a STDOUT
+init_mbj_lapw < mbj.info |& tee -a STDOUT
 
 echo " "
-$srtingLAPW -i $ITERATION $stringCONV -NI |& tee -a STDOUT
+$srtingLAPW $PPP -i $ITERATION $stringCONV -NI |& tee -a STDOUT
 
 cat << EOF
 
@@ -118,6 +162,5 @@ or you may use the save_default.sh
 sctipt available at https://tiny.cc/w2k​
 
 EOF
-
 
 
