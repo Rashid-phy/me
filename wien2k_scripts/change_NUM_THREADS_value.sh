@@ -24,23 +24,38 @@ echo ""
 
 if [[ $1 == c ]]; then exit; fi
 
-read -p "How many threads do you like to use? (maximum $nMAX) " userFEED
 
-if ! [[ $userFEED =~ $NUM ]]; then
+
+if [[ $nMAX -gt 8 ]]; then
+   echo "More than 8 cores may not increase performance."
+fi
+read -p "How many threads do you like to use? (maximum $nMAX) " ompthreads
+
+
+if ! [[ $ompthreads =~ $NUM ]]; then
    echo "Bad choice! Try again!!"
    echo ""
    exit
 else
-   if [[ $userFEED -gt $nMAX ]]; then
+   if [[ $ompthreads -gt $nMAX ]]; then
       echo "Only $nMAX threads are available! Try again!!"
       echo ""
       exit
    fi
+
+   read -p "     Set OMP_NUM_THREADS to  $ompthreads (y/n) " userFEED
    
-   bb="OMP_NUM_THREADS=$userFEED"
-   echo ""
-   echo "Changed setting: $bb"
-   sed -i "s/$aa/$bb/" $bashfile
+   if [[ $userFEED == y ]]; then
+      bb="OMP_NUM_THREADS=$ompthreads"
+      echo ""
+      echo "Changed setting: $bb"
+      sed -i "s/$aa/$bb/" $bashfile
+   else
+      echo ""
+      echo " *** No change is made. ***"
+      echo ""
+      exit
+   fi
 
    wCHK=`ps -C  w2web | grep w2web | gawk 'NR==1{print $4}'`
    if [[ $wCHK == w2web ]]; then 
