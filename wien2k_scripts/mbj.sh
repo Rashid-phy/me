@@ -92,18 +92,28 @@ elif [[ $spinCAL == n ]]; then
 fi
 
 
+cat << EOF
+
+================== For parallel calculation ==================
+If you like to perform parallel calculation before proceding  
+customize and save .machines file in the working directory.
+You may also need to set OMP_NUM_THREADS value in ~/.bashrc.
+To know more about parallel calculation in WIEN2k you may 
+watch the video http://www.youtube.com/watch?v=nZijemkovGY
+==============================================================
+
+EOF
+
+
 PPP=''
-if [[ -s ".machines" ]]; then
-   echo ""
-   read -p "Do you like to do parallel calculation? (y/n) " doPPP
-   if [[ $doPPP == y ]]; then
-      PPP='-p'
-   elif  [[ $doPPP == n ]]; then
-      rm -vf .machine*
-   else
-      echo "Wrong input! Try again!!"
-      exit
-   fi
+read -p "Do you like to do parallel calculation? (y/n) " doPPP
+if [[ $doPPP == y ]]; then
+   PPP='-p'
+elif  [[ $doPPP == n ]]; then
+   rm -vf .machine*
+else
+   echo "Wrong input! Try again!!"
+   exit
 fi
 
 
