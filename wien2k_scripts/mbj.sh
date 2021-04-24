@@ -105,11 +105,11 @@ watch the video http://www.youtube.com/watch?v=nZijemkovGY
 EOF
 
 
-PPP=''
 read -p "Do you like to do parallel calculation? (y/n) " doPPP
 if [[ $doPPP == y ]]; then
    PPP='-p'
 elif  [[ $doPPP == n ]]; then
+   PPP=''
    rm -vf .machine*
 else
    echo "Wrong input! Try again!!"

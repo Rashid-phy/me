@@ -17,6 +17,16 @@ echo ""
 NAME=${PWD##*/}
 INOP=$NAME.inop
 
+if [[ ! -f "$NAME.scf" ]]; then 
+   echo "$NAME.scf in not available"
+   echo ""
+   exit
+elif [[ ! -f "$INOP" ]]; then 
+   echo "$INOP in not available"
+   echo ""
+   exit
+fi
+
 bandGAP=`grep ':GAP (global)   :' $NAME.scf | tail -n 1  | gawk '{print $7}'`
 if [[ $bandGAP == 0.0 ]]; then
 	echo "Formula to calculate plasma frequency in the case of spin polarization for metal:"  
@@ -29,6 +39,16 @@ fi
 
 noCOLUMN=`grep 'number of choices' $INOP | gawk '{print $1}'`
 noLINE=`grep -n 'number of choices' $INOP | cut -c1`
+
+
+if [[ $noCOLUMN == '' ]]; then
+   echo "I can't detect the number of choices (columns) in $INOP."
+   echo "Please make sure you keep the text 'number of choices' "
+   echo "beside the colume number in the $INOP file."
+   echo ""
+   exit
+fi
+
 
 if [[ $noCOLUMN == 1 ]]; then
    ReVALUE=`gawk -v j=$(($noLINE + 1)) 'NR==j {print $1}' $INOP`

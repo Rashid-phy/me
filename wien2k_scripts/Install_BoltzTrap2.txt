@@ -7,25 +7,46 @@ Welcome. Here, I shall describe the way I installed BoltzTraP2 in my laptop. I a
 
 At first I had to install some dependent program. I did that using the following command in terminal
 
-	sudo apt install build-essential cmake
+	sudo apt install build-essential cmake libhdf5-serial-dev libnetcdf-dev
 
 Then, I installed Python 3.7. BoltzTraP2 needs Python 3.5 or higher version. You may use Python 3.6 in place of Python 3.7 also. To install Python 3.7 I used the following commands in terminal
 
 	sudo add-apt-repository ppa:deadsnakes/ppa
 	sudo apt update
-	sudo apt install python3.7 python3.7-dev
+	sudo apt upgrade
+	sudo apt install python3.7 python3.7-dev python3-tk
 
 The python*-dev is required for the wheel package essential for building BoltzTraP2. You may need to install pip if that is not available in you PC. With the following command you may do so
 
-	sudo apt install python3-pip
+	sudo apt install python3-pip 
 
-Now we are ready to install BoltzTraP2. I used pip but you may use pip3 also, if that is availabe in you PC. I used the following command to install BoltzTraP2 in my laptop.
+Now we are ready to install BoltzTraP2. I used pip3 but you may use pip also, if that is availabe in you PC. I used the following command to install BoltzTraP2 in my laptop.
 
-	pip install wheel pyFFTW vtk BoltzTraP2
+	pip3 install wheel pyFFTW vtk numpy BoltzTraP2
 
-Hope you will be able to install BoltzTraP2 following the above instructions. Then I used the add_boltz2_to_w2web-1.5.3.tar.gz to include BoltzTraP2 in the w2web interface. The link of the file is available in my site. I am using WIEN2k 19.1 version.
+Hope you will be able to install BoltzTraP2 following the above instructions. The packages that are installed in the $HOME/.local/lib/python3.5/site-packages directory are as follows: 
 
-After downloading add_boltz2_to_w2web-1.5.3.tar.gz you need to extract the file and run the add_boltz2_to_w2web script to add BoltzTraP2 in the w2web interface. You may do so using the following commands (assuming you saved add_boltz2_to_w2web-1.5.3.tar.gz in the Downloads folder)
+   * BoltzTraP2-20.7.1 
+   * ase-3.19.2 
+   * cftime-1.2.1 
+   * cycler-0.10.0 
+   * kiwisolver-1.3.1 
+   * matplotlib-3.0.3 
+   * netCDF4-1.5.4 
+   * numpy-1.18.5 
+   * pyFFTW-0.12.0 
+   * pyparsing-2.4.7 
+   * python-dateutil-2.8.1 
+   * scipy-1.4.1 
+   * six-1.15.0 
+   * spglib-1.15.1 
+   * vtk-8.1.2 
+   * wheel-0.36.2
+
+
+Then I used the add_boltz2_to_w2web-1.5.3.tar.gz to include BoltzTraP2 in the w2web interface. The link of the file is available in my site. I am using WIEN2k 19.1 version.
+
+After downloading add_boltz2_to_w2web-1.5.3.tar.gz you need to extract the file and run the add_boltz2_to_w2web script to add BoltzTraP2 in the w2web interface. You may do so using the following commands (assuming you saved add_boltz2_to_w2web-1.5.3.tar.gz in the $HOME/Downloads folder)
 
 	cd ~/Downloads
 	tar -zxvf add_boltz2_to_w2web-1.5.3.tar.gz
@@ -40,7 +61,7 @@ You may need to restart you PC to see the effect. Restarting w2web should also w
 
 This is all I did to install and include BoltzTraP2 in w2web in my laptop. If you need help or encounter any problem, you may write to me at rashid@just.edu.bd.
 
-Please do not forget to subscribe my YouTube channel (Physics School): https://www.youtube.com/channel/UCeG4hWTlPeJza5E2EWMTBRQ
+Please do not forget to subscribe my YouTube channel (Physics School): https://www.youtube.com/c/PhysicsSchool20
 
 Happy computing!!
  
