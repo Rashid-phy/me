@@ -37,9 +37,9 @@ echo "$LineOne" > $dataFILE
 paste tmp2  tmp3 >> $dataFILE
 
 
-gpltDEFINATION=$HOME/.gnuplot
-if [[ ! -s "$gpltDEFINATION" ]]; then 
-cat > $gpltDEFINATION << EOF
+gpltDEFINE=$HOME/.gnuplot
+if [[ ! -s "$gpltDEFINE" ]]; then 
+cat > $gpltDEFINE << EOF
 set	linetype	1	linewidth	3	lc	rgb	"blue"		
 set	linetype	2	linewidth	3	lc	rgb	"forest-green"	
 set	linetype	3	linewidth	3	lc	rgb	"dark-violet"
@@ -51,8 +51,8 @@ set	linetype	8	linewidth	3	lc	rgb	"yellow"
 set	linetype	cycle	8								
 EOF
 fi
-SETeps='set term postscript eps enhanced color font "Times-Roman, 20" '
-SETpng='set term png enhanced size 1000,800 font "Times-Roman, 20"'
+#SETeps='set term postscript eps enhanced color font "Times-Roman, 20" '
+#SETpng='set term png enhanced size 1000,800 font "Times-Roman, 20"'
 
 cat > tmp4 <<EOF
 set terminal postscript eps enhanced color font 'Helvetica,14'
@@ -60,9 +60,10 @@ set output "Seebeck.ps"
 set xrange [:]
 set yrange [:]
 set xlabel "The chemical potential ({/Symbol m }- {/Symbol e }_F) [eV]"
-set ylabel " Seebeck coefficient [VK^{-1}]"
+set ylabel " Seebeck coefficient S [VK^{-1}]"
 set xzeroaxis
 set yzeroaxis
+
 EOF
 
 cat > tmp4x <<EOF
@@ -74,6 +75,7 @@ set xlabel "The chemical potential ({/Symbol m }- {/Symbol e }_F) [eV]"
 set ylabel " S^{(xx)} [VK^{-1}]"
 set xzeroaxis
 set yzeroaxis
+
 EOF
 
 cat > tmp4y <<EOF
@@ -85,6 +87,7 @@ set xlabel "The chemical potential ({/Symbol m }- {/Symbol e }_F) [eV]"
 set ylabel " S^{(yy)} [VK^{-1}]"
 set xzeroaxis
 set yzeroaxis
+
 EOF
 
 cat > tmp4z <<EOF
@@ -96,6 +99,7 @@ set xlabel "The chemical potential ({/Symbol m }- {/Symbol e }_F) [eV]"
 set ylabel " S^{(zz)} [VK^{-1}]"
 set xzeroaxis
 set yzeroaxis
+
 EOF
 
 echo "" > tmp5
@@ -109,12 +113,12 @@ T2=`gawk  'NR==2 {print $2}' tmp2 | cut -c1-4 | bc `
 Tmax=`gawk  '{print $2}' tmp2 | cut -c1-4 | bc | tail -n 1`
 Tstep=`echo "$T2 - $T1" | bc `
 
+
 temp=$T1
-for j in {1..100}; do
-#   echo $temp
+for j in {1..50}; do
    echo "$LineOne" > TT_$temp
-#   grep $temp.000 $dataFILE >> TT_$temp
-   sed  '/^ *$/d' $dataFILE  | gawk '$2+0=='$temp'' | gawk '/# Phase/{print ""; print ""} {print}' >> TT_$temp
+   gawk '$2+0=='$temp'' $dataFILE | gawk '/# Phase/{print ""; print ""} {print}' >> TT_$temp
+#   echo $temp
 #   cat TT_$temp | wc -l
 
    echo "plot 'TT_$temp' u 1:3 w l  title 'T = $temp K' "  >> tmp5
@@ -123,7 +127,6 @@ for j in {1..100}; do
    echo "plot 'TT_$temp' u 1:6 w l  title 'T = $temp K' "  >> tmp5z
 
    if [[ $temp == $Tmax ]]; then break; fi
-   temp=`echo "$temp + $Tstep" | bc `
    
    if [[ $j == 1 ]]; then
       echo "plot 'TT_$temp' u 1:3 w l  title 'T = $temp K' , \\"  >> tmp4
@@ -136,6 +139,8 @@ for j in {1..100}; do
       echo "     'TT_$temp' u 1:5 w l  title 'T = $temp K' , \\"  >> tmp4y
       echo "     'TT_$temp' u 1:6 w l  title 'T = $temp K' , \\"  >> tmp4z
    fi   
+
+   temp=`echo "$temp + $Tstep" | bc `
 
 done
       echo "     'TT_$temp' u 1:3 w l  title 'T = $temp K' "  >> tmp4
