@@ -33,7 +33,7 @@ tmpPNG=~/.w2web/$(hostname -f)/tmp/*.png
 
 na=`ls ${NAME}_coa*default.scf | wc -l`
 
-if [[ $na -le 2 ]]; then
+if [[ $na -le 4 ]]; then
    echo "Number of available SCF files are $na"
    echo "There is no sufficient files to plot the Energy vs c/a graph!"
    echo ""
