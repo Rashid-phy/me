@@ -61,7 +61,8 @@ read -p "Do you like to compress '$saveDIR'? (y/n) " compressDIR
 
 if [[ $compressDIR == y ]]; then
 #	tarNAME=$NAME.$saveDIR.tar.gz
-	tarNAME=$NAME.$saveDIR.zip
+#	tarNAME=$NAME.$saveDIR.zip
+	tarNAME=${NAME}_${saveDIR}.zip
 	if [[ -f $tarNAME ]]; then
 		rm $tarNAME
 	fi
