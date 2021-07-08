@@ -281,6 +281,11 @@ echo "Necessery file are saved in '$saveDIR' folder."
 echo "All the other files are saved in '$extraDIR' which can be deleted after checking files in '$saveDIR' folder."
 echo " "
 
+mkdir $NAME
+cp $NAME.* ${NAME}_* $NAME 2>/dev/null
+cp -r $NAME $saveDIR 
+mv $NAME $sendDIR
+
 zip -rq $sendDIR.zip $sendDIR
 
 du -sh .
