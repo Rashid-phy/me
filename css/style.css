@@ -345,6 +345,24 @@ margin-bottom: 50px;
 }
 
 
+/*
+table {
+  width: 100%;
+}
+*/
+
+table, th, td {
+  border: 1.5px solid lightgreen;
+}
+
+th, td {
+  padding: 5px 15px 5px 15px;
+}
+
+th, tr {
+  text-align: center;
+}
+
 /* END BODY PAGE */
 
 

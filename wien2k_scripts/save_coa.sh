@@ -67,12 +67,12 @@ cat > $gpltDEFINATION << EOF
 set	linetype	1	linewidth	3	lc	rgb	"blue"		
 set	linetype	2	linewidth	3	lc	rgb	"forest-green"	
 set	linetype	3	linewidth	3	lc	rgb	"dark-violet"
-set	linetype	4	linewidth	3	lc	rgb	"cyan"
-set	linetype	5	linewidth	3	lc	rgb	"dark-red"		
-set	linetype	6	linewidth	3	lc	rgb	"dark-orange"
-set	linetype	7	linewidth	3	lc	rgb	"goldenrod"
-set	linetype	8	linewidth	3  lc	rgb	"yellow"
-set	linetype	cycle	8								
+set	linetype	4	linewidth	3	lc	rgb	"dark-orange"
+set	linetype	5	linewidth	3	lc	rgb	"yellow"
+set	linetype	6	linewidth	3	lc	rgb	"cyan"
+set	linetype	7	linewidth	3	lc	rgb	"dark-red"		
+set	linetype	8	linewidth	3	lc	rgb	"goldenrod"
+set	linetype	cycle	9	
 EOF
 fi
 
