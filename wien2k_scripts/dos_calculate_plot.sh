@@ -16,7 +16,6 @@ NAME=${PWD##*/}
 SCF=$NAME.scf
 structure=$NAME.struct
 sysINT=$NAME.int
-sysINTst=$NAME.int_st
 fname=$NAME.dos1ev
 saveDIR=Result.DOS
 
@@ -107,13 +106,8 @@ for ((i = 1; i <= $totalATOM; i++)); do
 	plotSTR="$plotSTR, '' u 1:$(($i+2)) w l title '$ATOM'"
 done
 
-if [[ ! -s $sysINTst ]]; then
-   cp $sysINT $sysINTst
-fi
-
+gawk 'NR<3' $sysINT > dos.tmp
 configure_int_lapw -b total $init_lapwSTR end
-
-gawk 'NR<3' $sysINTst > dos.tmp
 gawk 'NR>2' $sysINT >> dos.tmp
 mv dos.tmp $sysINT
 
@@ -212,17 +206,12 @@ cat << EOF
 Command to calculate PDOS: $init_lapwSTR
 
 EOF
-read -p "Do you like to contimue? (y/n) " userFEED
+read -p "Do you like to continue? (y/n) " userFEED
 if [[ $userFEED != y ]]; then exit; fi
 
-if [[ ! -s $sysINTst ]]; then
-   cp $sysINT $sysINTst
-fi
-
 echo ""
+gawk 'NR<3' $sysINT > pdos.tmp
 $init_lapwSTR 
-
-gawk 'NR<3' $sysINTst > pdos.tmp
 gawk 'NR>2' $sysINT >> pdos.tmp
 mv pdos.tmp $sysINT
 
@@ -284,8 +273,7 @@ replot
 EOF
 
 gnuplot < $GNUname
-mv $sysINT ${nameSTR}.int
-mv $sysINTst $sysINT
+cp $sysINT ${nameSTR}.int
 mkdir -p $saveDIR
 mv *${nameSTR}.* $saveDIR/
 echo ""
