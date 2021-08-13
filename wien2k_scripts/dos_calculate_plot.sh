@@ -16,7 +16,6 @@ NAME=${PWD##*/}
 SCF=$NAME.scf
 structure=$NAME.struct
 sysINT=$NAME.int
-fname=$NAME.dos1ev
 saveDIR=Result.DOS
 
 NUM='^[0-9]+$'
@@ -38,7 +37,6 @@ fi
 
 if [[ -f "$NAME.scf2up" && -f "$NAME.scf2dn" ]]; then 
 	spCAL=y
-	WCTAfunction 'The script is NOT suitable for spin-polarization calculation!'
 else
 	spCAL=n
 fi
@@ -73,14 +71,16 @@ set	linetype	5	linewidth	3	lc	rgb	"yellow"
 set	linetype	6	linewidth	3	lc	rgb	"cyan"
 set	linetype	7	linewidth	3	lc	rgb	"dark-red"		
 set	linetype	8	linewidth	3	lc	rgb	"goldenrod"
-set	linetype	cycle	9							
+set	linetype	cycle	9  
 EOF
 fi
 
 
 ############################################################### 
+############################################################### 
 #####   Only total contribution of each (up to 6) atoms   #####
 ###############################################################
+############################################################### 
 if [[ $atomNUM == 0 ]]; then 
 cat << EOF
 
@@ -101,18 +101,23 @@ init_lapwSTR=''
 plotSTR="u 1:2 w l title 'total'"
 
 for ((i = 1; i <= $totalATOM; i++)); do
-	ATOM=`grep 'RMT=' $structure | gawk -v j=$i 'NR==j{print $1}'`
+	atomNAME=`grep 'RMT=' $structure | gawk -v j=$i 'NR==j{print $1}'`
 	init_lapwSTR="$init_lapwSTR $i tot"
-	plotSTR="$plotSTR, '' u 1:$(($i+2)) w l title '$ATOM'"
+	plotSTR="$plotSTR, '' u 1:$(($i+2)) w l title '$atomNAME'"
 done
 
-gawk 'NR<3' $sysINT > dos.tmp
+gawk 'NR<3' $sysINT > pdos.tmp
 configure_int_lapw -b total $init_lapwSTR end
-gawk 'NR>2' $sysINT >> dos.tmp
-mv dos.tmp $sysINT
+gawk 'NR>2' $sysINT >> pdos.tmp
+mv pdos.tmp $sysINT
 
-echo "*************************************************" 
+################################################################ spCAL=n
+################################################################ spCAL=n
+if [[ $spCAL == n ]]; then
+
+echo ""
 x tetra 
+fname=$NAME.dos1ev
 
 cat > gplot.gnu << EOF
 
@@ -147,6 +152,12 @@ plot '$fname' u 1:2 w l notitle
 
 EOF
 
+
+
+## CHECK 123456789
+
+
+
 gnuplot < gplot.gnu
 
 mkdir -p $saveDIR
@@ -161,20 +172,123 @@ echo ""
 xdg-open $saveDIR/$NAME.DOS.png
 
 
+fi
+################################################################ spCAL=n
+################################################################ spCAL=n
+
+################################################################ spCAL=y
+################################################################ spCAL=y
+if [[ $spCAL == y ]]; then
+
+echo ""
+x tetra -up
+echo "" 
+x tetra -dn
+fnamedn=$NAME.dos1evdn
+fnameup=$NAME.dos1evup
+
+cat > gplot.gnu << EOF
+
+############################################################
+##
+## Gnuplot script by Dr. Rashid
+##
+## WIEN2k Tutorials: https://tiny.cc/w2k
+##
+## Youtube: https://www.youtube.com/c/PhysicsSchool20
+##
+############################################################
+
+set xlabel 'Energy (eV)'
+set ylabel 'DOS (states/eV)'
+set yzeroaxis
+$dosXrange
+
+$SETeps
+set output '$NAME.DOS_up.eps'
+plot '$fnameup' $plotSTR
+
+set output '$NAME.DOS_dn.eps'
+plot '$fnamedn' $plotSTR
+
+set output '$NAME.TDOS_up-dn.eps'
+plot '$fnameup' u 1:2 w l title 'up spin','$fnamedn' u 1:(-\$2) w l title 'down spin', '' u 1:(0) w d notitle
+
+
+$SETpng
+set title 'TOTAL'
+set output '$NAME.TDOS_up-dn.png'
+plot '$fnameup' u 1:2 w l title 'up spin','$fnamedn' u 1:(-\$2) w l title 'down spin', '' u 1:(0) w d notitle
+
+set title 'UP spin'
+set output '$NAME.DOS_up.png'
+plot '$fnameup' $plotSTR
+
+set title 'DOWN spin'
+set output '$NAME.DOS_dn.png'
+plot '$fnamedn' $plotSTR
+
+EOF
+
+
+for ((i = 1; i <= $totalATOM; i++)); do
+	atomNAME=`grep 'RMT=' $structure | gawk -v j=$i 'NR==j{print $1}'`
+   nameSTR=PDOS_atom_${i}_${atomNAME}
+	pdosATOM=$(($i+2))
+
+cat >> gplot.gnu << EOF
+
+unset title
+
+$SETeps
+set output '${nameSTR}_up-down.eps'
+plot '$NAME.dos1evup' u 1:$pdosATOM w l title 'up spin', \
+	   '$NAME.dos1evdn' u 1:(-\$$pdosATOM) w l title 'down spin', '' u 1:(0) w d notitle
+
+$SETpng
+set title "Atom \# $i: $atomNAME"
+set output '${nameSTR}_up-down.png'
+plot '$NAME.dos1evup' u 1:$pdosATOM w l title 'up spin', \
+	   '$NAME.dos1evdn' u 1:(-\$$pdosATOM) w l title 'down spin', '' u 1:(0) w d notitle
+
+
+EOF
+done
+
+
+gnuplot < gplot.gnu
+
+mkdir -p $saveDIR
+cp $NAME.dos* $NAME.klist $sysINT $saveDIR/
+mv $NAME.DOS* $NAME.TDOS* PDOS_atom_* gplot.gnu $saveDIR/
+echo ""
+du -sh $saveDIR
+echo ""
+echo "** Plots and nessery files are saved in $saveDIR **"
+echo ""
+
+xdg-open $saveDIR/$NAME.DOS_dn.png
+
+fi
+
+################################################################ spCAL=y
+################################################################ spCAL=y
+
 exit
 fi
 
+
+
+
+################################################################ 
 ################################################################
 # Contribution of orbitals of selected atom will be calculated #
+################################################################
 ################################################################
 
 atomNAME=`grep 'RMT=' $structure | gawk -v i=$atomNUM 'NR==i{print $1}' | cut -c1-2`
 nameSTR=PDOS_atom_${atomNUM}_${atomNAME}
-DATAname=$nameSTR.data
-EPSname=$nameSTR.eps
 GNUname=$nameSTR.gnu
-PNGname=$nameSTR.png
-
 
 cat << EOF
 
@@ -209,14 +323,24 @@ EOF
 read -p "Do you like to continue? (y/n) " userFEED
 if [[ $userFEED != y ]]; then exit; fi
 
-echo ""
 gawk 'NR<3' $sysINT > pdos.tmp
+echo ""
 $init_lapwSTR 
 gawk 'NR>2' $sysINT >> pdos.tmp
 mv pdos.tmp $sysINT
 
-x tetra | tee -a 
-cp $fname $DATAname
+
+################################################################ spCAL=n
+################################################################ spCAL=n
+if [[ $spCAL == n ]]; then
+
+DATAname=$nameSTR.data
+EPSname=$nameSTR.eps
+PNGname=$nameSTR.png
+
+echo ""
+x tetra
+cp $NAME.dos1ev $DATAname
 
 cat > $GNUname << EOF
 
@@ -238,7 +362,7 @@ $dosXrange
 
 $SETpng
 set output "TDOS_$PNGname"
-plot "$DATAname" using 1:2 title "TDOS"  w l, '' using 1:3 title "$atomNAME" w l 
+plot "$DATAname" using 1:2 title "total"  w l, '' using 1:3 title "$atomNAME" w l 
 
 unset title
 
@@ -282,5 +406,160 @@ echo ""
 echo "** Plots and nessery files are saved in $saveDIR **"
 echo ""
 xdg-open $saveDIR/$PNGname
+
+exit
+fi
+################################################################ spCAL=n
+################################################################ spCAL=n
+
+################################################################ spCAL=y
+################################################################ spCAL=y
+if [[ $spCAL == y ]]; then
+
+echo ""
+x tetra -up
+echo ""
+x tetra -dn
+
+DATAnameup=${nameSTR}_up.data
+EPSnameup=${nameSTR}_up.eps
+PNGnameup=${nameSTR}_up.png
+
+DATAnamedn=${nameSTR}_dn.data
+EPSnamedn=${nameSTR}_dn.eps
+PNGnamedn=${nameSTR}_dn.png
+
+cp $NAME.dos1evup $DATAnameup
+cp $NAME.dos1evdn $DATAnamedn
+
+
+cat > $GNUname << EOF
+
+##
+## Gnuplot script by Dr. Rashid
+##
+## WIEN2k Tutorials: https://tiny.cc/w2k
+##
+## Youtube: https://www.youtube.com/c/PhysicsSchool20
+##
+
+set xlabel "Energy (eV)"
+set ylabel "DOS(States/eV)"
+set title "Atom \# $atomNUM: $atomNAME (up spin)
+set yzeroaxis
+$dosXrange
+
+$SETpng
+set output "TDOS_$PNGnameup"
+plot "$DATAnameup" using 1:2 title "total"  w l, '' using 1:3 title "$atomNAME" w l 
+
+unset title
+
+$SETeps
+set output "TDOS_$EPSnameup"
+replot
+
+set ylabel "DOS(States/eV)"
+set title "Atom \# $atomNUM: $atomNAME (up spin)"
+$SETpng
+set output "$PNGnameup"
+set multiplot
+
+  plot  "$DATAnameup" using 1:3 title "$atomNAME" w l 
+EOF
+
+column=4
+for ii in $STRspace ; do
+   echo "replot  '$DATAnameup' using 1:$column title '$ii' w l" >> $GNUname
+   column=$(($column+1))
+done
+
+cat >> $GNUname << EOF
+
+unset multiplot
+unset title
+
+$SETeps
+set output "$EPSnameup"
+replot
+
+EOF
+
+gnuplot < $GNUname
+
+
+################################################################ UP
+################################################################ DOWN
+
+
+cat > $GNUname << EOF
+
+##
+## Gnuplot script by Dr. Rashid
+##
+## WIEN2k Tutorials: https://tiny.cc/w2k
+##
+## Youtube: https://www.youtube.com/c/PhysicsSchool20
+##
+
+set xlabel "Energy (eV)"
+set ylabel "DOS(States/eV)"
+set title "Atom \# $atomNUM: $atomNAME (down spin)"
+set yzeroaxis
+$dosXrange
+
+$SETpng
+set output "TDOS_$PNGnamedn"
+plot "$DATAnamedn" using 1:2 title "total"  w l, '' using 1:3 title "$atomNAME" w l 
+
+unset title
+
+$SETeps
+set output "TDOS_$EPSnamedn"
+replot
+
+set ylabel "DOS(States/eV)"
+set title "Atom \# $atomNUM: $atomNAME (down spin)"
+$SETpng
+set output "$PNGnamedn"
+set multiplot
+
+  plot  "$DATAnamedn" using 1:3 title "$atomNAME" w l 
+EOF
+
+column=4
+for ii in $STRspace ; do
+   echo "replot  '$DATAnamedn' using 1:$column title '$ii' w l" >> $GNUname
+   column=$(($column+1))
+done
+
+cat >> $GNUname << EOF
+
+unset multiplot
+unset title
+
+$SETeps
+set output "$EPSnamedn"
+replot
+
+EOF
+
+gnuplot < $GNUname
+
+
+cp $sysINT ${nameSTR}.int
+mkdir -p $saveDIR
+echo ""
+mv *${nameSTR}_up.*  *${nameSTR}_dn.* $GNUname ${nameSTR}.int $saveDIR/
+du -sh $saveDIR
+echo ""
+echo "** Plots and nessery files are saved in $saveDIR **"
+echo ""
+xdg-open $saveDIR/$PNGnamedn
+
+exit
+fi
+################################################################ spCAL=y
+################################################################ spCAL=y
 
 
