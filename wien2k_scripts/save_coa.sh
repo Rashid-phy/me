@@ -40,6 +40,11 @@ if [[ $na -le 4 ]]; then
    exit
 fi
 
+dback=dayfile.back
+if [[ -s "$NAME.dayfile" ]]; then
+   cp $NAME.dayfile $dback
+fi
+
 ls ${NAME}_coa*default.scf > aa
 
 printf "# cell_volume \t\t c/a_change \t\t  total_energy (Ry) \n" > $coaDATA
@@ -196,7 +201,7 @@ for ii in scf scf2 vsp ; do
 	cp $sendFILE $sendDIR/
 done
 cp ':log' $sendDIR/$NAME.tlogf
-cp STDOUT optimize.job coaplot.gnu fitparameter $coaDATA $coaFIT $sendDIR/
+cp STDOUT optimize.job coaplot.gnu fitparameter $coaDATA $coaFIT $dback $sendDIR/
 cp $NAME*struct $NAME.in* $NAME.coa* $plotCOAchange* $sendDIR/
 
 if [[ -f "$(ls $tmpPNG 2> /dev/null)" ]]; then

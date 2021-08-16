@@ -41,6 +41,11 @@ if [[ $na -le 2 ]]; then
    exit
 fi
 
+dback=dayfile.back
+if [[ -s "$NAME.dayfile" ]]; then
+   cp $NAME.dayfile $dback
+fi
+
 ls ${NAME}_vol*default.scf > aa
 
 printf "# cell_volume \t\t vol_change \t\t  total_energy (Ry) \n" > $volDATA
@@ -222,7 +227,7 @@ for ii in scf scf2 vsp ; do
 done
 cp ':eplot' $sendDIR/${NAME}_vol.eplot
 cp ':log' $sendDIR/$NAME.tlogf
-cp STDOUT optimize.job vplot.gnu $sendDIR/
+cp STDOUT optimize.job vplot.gnu $dback $sendDIR/
 cp $NAME*struct $NAME.eosfit* $NAME.in* $NAME.vol* $NAME*png $NAME*eps $fitDATA $sendDIR/
 
 if [[ -f "$(ls $tmpPNG 2> /dev/null)" ]]; then
