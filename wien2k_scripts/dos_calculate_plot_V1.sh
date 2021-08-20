@@ -27,16 +27,6 @@ function WCTAfunction () {
    exit
 }
 
-if [[ $1 == 'hf' ]]; then
-   echo "** You choose to calculate DOS/PDOS with hybrid-DFT **"
-   read -p "      Press ENTER to continue or q to quit: " userFEED
-   if [[ $userFEED != '' ]]; then exit; fi
-   HHFF='-hf'
-else
-   HHFF=' '
-fi
-
-
 if [[ ! -s $SCF ]]; then
    WCTAfunction "$SCF is NOT available! Do the scf calculation first!!"
 elif [[ ! -s $structure ]]; then
@@ -126,20 +116,20 @@ mv pdos.tmp $sysINT
 if [[ $spCAL == n ]]; then
 
 echo ""
-x tetra $HHFF
+x tetra 
 fname=$NAME.dos1ev
 
 cat > gplot.gnu << EOF
 
-##########################################################
-##                                                      ##
-##  Gnuplot script by Dr. Rashid                        ##
-##                                                      ##
-##  WIEN2k Tutorials: https://tiny.cc/w2k               ##
-##                                                      ##
-##  Youtube: https://www.youtube.com/c/PhysicsSchool20  ##
-##                                                      ##
-##########################################################
+############################################################
+##
+## Gnuplot script by Dr. Rashid
+##
+## WIEN2k Tutorials: https://tiny.cc/w2k
+##
+## Youtube: https://www.youtube.com/c/PhysicsSchool20
+##
+############################################################
 
 set xlabel 'Energy (eV)'
 set ylabel 'DOS (states/eV)'
@@ -191,23 +181,23 @@ fi
 if [[ $spCAL == y ]]; then
 
 echo ""
-x tetra $HHFF -up
+x tetra -up
 echo "" 
-x tetra $HHFF -dn
+x tetra -dn
 fnamedn=$NAME.dos1evdn
 fnameup=$NAME.dos1evup
 
 cat > gplot.gnu << EOF
 
-##########################################################
-##                                                      ##
-##  Gnuplot script by Dr. Rashid                        ##
-##                                                      ##
-##  WIEN2k Tutorials: https://tiny.cc/w2k               ##
-##                                                      ##
-##  Youtube: https://www.youtube.com/c/PhysicsSchool20  ##
-##                                                      ##
-##########################################################
+############################################################
+##
+## Gnuplot script by Dr. Rashid
+##
+## WIEN2k Tutorials: https://tiny.cc/w2k
+##
+## Youtube: https://www.youtube.com/c/PhysicsSchool20
+##
+############################################################
 
 set xlabel 'Energy (eV)'
 set ylabel 'DOS (states/eV)'
@@ -349,7 +339,7 @@ EPSname=$nameSTR.eps
 PNGname=$nameSTR.png
 
 echo ""
-x tetra $HHFF
+x tetra
 cp $NAME.dos1ev $DATAname
 
 cat > $GNUname << EOF
@@ -427,9 +417,9 @@ fi
 if [[ $spCAL == y ]]; then
 
 echo ""
-x tetra $HHFF -up
+x tetra -up
 echo ""
-x tetra $HHFF -dn
+x tetra -dn
 
 DATAnameup=${nameSTR}_up.data
 EPSnameup=${nameSTR}_up.eps
