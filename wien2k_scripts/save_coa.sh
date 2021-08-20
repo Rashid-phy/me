@@ -95,8 +95,8 @@ EOF
 gawk 'NR>1 {print "\t" $2 "\t" $3}' $coaDATA > tmp2
 
 cat > coaplot.gnu << EOF
-set linetype    1   linewidth	4   pt 2   lc rgb 'red' 
-set	linetype	2	linewidth	2	lc	rgb	"forest-green"	
+set  linetype  1  linewidth  4  pt  2  lc  rgb 'red' 
+set  linetype  2  linewidth  2         lc  rgb "forest-green"	
 
 set xlabel "Change in c/a [%]"
 set ylabel "Energy [Ry]"

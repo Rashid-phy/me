@@ -120,8 +120,8 @@ SETpng='set term png enhanced size 1000,800 font "Times-Roman, 20"'
 SETeps='set term postscript eps enhanced color font "Times-Roman, 20" '
 
 cat > vplot.gnu << EOF
-set linetype    1   linewidth	4   pt 2   lc rgb 'red' 
-set	linetype	2	linewidth	2	lc	rgb	"forest-green"	
+set  linetype  1  linewidth  4  pt  2  lc  rgb 'red' 
+set  linetype  2  linewidth  2         lc  rgb "forest-green"	
 
 set format y "%.4f"
 set title "$NAME: Murnaghan"

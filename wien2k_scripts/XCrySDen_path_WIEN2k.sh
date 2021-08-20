@@ -10,7 +10,7 @@ echo ""
 echo "The script is free; you can redistribute it and/or modify it under the terms of the GNU General Public License. The script is distributed in the hope that it will be helpful, but WITHOUT ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE."
 echo ""
 
-cd ~
+cd $HOME
 bashpath=".bashrc"
 xnam="xcrysden"
 aa=`which $xnam`
@@ -19,7 +19,7 @@ if [[ $aa == '' ]]; then
 	echo "XCrySDen is not installed!"
 	read -p "Do you like to install XCrySDen? (y/n) " userFEED
 	if [[ $userFEED == y ]]; then
-		apt install $xnam
+		sudo apt install $xnam
 	else
 		echo "Your system does not have XCrySDen. Try again."
 		exit
@@ -71,15 +71,6 @@ Run the following commands in sequesnce:
 EOF
 
 
-#cat aaaa
-#echo ""
-#ls aaaa*
-
-# LLLL='PATH="$XCRYSDEN_TOPDIR:$PATH:$XCRYSDEN_TOPDIR/scripts:$XCRYSDEN_TOPDIR/util"'
-# sed -i "s/KKKK/ $LLLL /" $bashpath
 #### PATH="$XCRYSDEN_TOPDIR:$PATH:$XCRYSDEN_TOPDIR/scripts:$XCRYSDEN_TOPDIR/util"
-
-
-
 
 
