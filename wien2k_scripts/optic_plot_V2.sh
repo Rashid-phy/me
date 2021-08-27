@@ -319,25 +319,6 @@ echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_$ReXYZ'" >> gplot.gnu
 gnuplot < gplot.gnu
 
 
-#################################################################################
-
-# plot extinction coefficient | refraction 
-FILE='refraction'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Extinction coefficient'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.extinct.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'ref\_ind\_$ReXYZ1'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.extinct.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:3 w l title 'ref\_ind\_$ReXYZ1'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-#################################################################################
-
 # plot reflectivity 
 FILE='reflectivity'
 echo "set xlabel 'Energy (eV)'" > gplot.gnu
@@ -489,27 +470,6 @@ echo "set output '$NAME.$FILE.png'" >> gplot.gnu
 echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_$ReXYZ1', \
 		''	 u 1:3 w l title 'ref\_ind\_$ReXYZ2'" >> gplot.gnu
 gnuplot < gplot.gnu
-
-#################################################################################
-
-# plot extinction coefficient | refraction 
-FILE='refraction'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Extinction coefficient'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.extinct.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:4 w l title 'ref\_ind\_$ReXYZ1', \
-		''	 u 1:5 w l title 'ref\_ind\_$ReXYZ2'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.extinct.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:4 w l title 'ref\_ind\_$ReXYZ1', \
-		''	 u 1:5 w l title 'ref\_ind\_$ReXYZ2'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-#################################################################################
 
 
 # plot reflectivity 
@@ -680,31 +640,6 @@ echo "plot '$NAME.$FILE' u 1:2 w l title 'ref\_ind\_$ReXYZ1', \
 		''	 u 1:3 w l title 'ref\_ind\_$ReXYZ2', \
 		''	 u 1:4 w l title 'ref\_ind\_$ReXYZ3'" >> gplot.gnu
 gnuplot < gplot.gnu
-
-
-
-#################################################################################
-
-# plot extinction coefficient | refraction 
-FILE='refraction'
-echo "set xlabel 'Energy (eV)'" > gplot.gnu
-echo "set ylabel 'Extinction coefficient'" >> gplot.gnu
-
-echo "$SETeps" >> gplot.gnu
-echo "set output '$NAME.extinct.eps'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:5 w l title 'ref\_ind\_$ReXYZ1', \
-		''	 u 1:6 w l title 'ref\_ind\_$ReXYZ2', \
-		''	 u 1:7 w l title 'ref\_ind\_$ReXYZ3'" >> gplot.gnu
-
-echo "$SETpng" >> gplot.gnu
-echo "set output '$NAME.extinct.png'" >> gplot.gnu
-echo "plot '$NAME.$FILE' u 1:5 w l title 'ref\_ind\_$ReXYZ1', \
-		''	 u 1:6 w l title 'ref\_ind\_$ReXYZ2', \
-		''	 u 1:7 w l title 'ref\_ind\_$ReXYZ3'" >> gplot.gnu
-gnuplot < gplot.gnu
-
-
-#################################################################################
 
 
 # plot reflectivity 
