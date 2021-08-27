@@ -11,8 +11,9 @@ echo ""
 echo "The script is free; you can redistribute it and/or modify it under the terms of the GNU General Public License. The script is distributed in the hope that it will be helpful, but WITHOUT ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE."
 echo ""
 
-NUM='^[1-9]+$'
+NUM='^[0-9]+$'
 plotSTR='plot'
+flist=/tmp/files.txt
 
 read -p "How many lines/curves do you like to plot? " pNUM
 if ! [[ $pNUM =~ $NUM ]] ; then
@@ -20,17 +21,18 @@ if ! [[ $pNUM =~ $NUM ]] ; then
 fi
 
 echo ""
-ls | cat -n
+ls -p | grep -vE '\\|eps|png|jpg|jpeg|pdf|klist|kgen|injoint|inop' > $flist
+cat -n $flist
 
 ####################################################
-for ii in {1..9} ; do
+for ii in {1..99} ; do
 
 echo ""
 read -p "$ii. Enter the file name or the sirial number: " fNUM
 if [[ $fNUM == '' ]]; then 
    echo "Error: Not a valid input!" >&2; exit 1
 elif [[ $fNUM =~ $NUM ]] ; then
-   fnam=`ls | head -n $fNUM | tail -1`
+   fnam=`gawk -v jj=$fNUM 'NR==jj' $flist`
 else
    fnam=$fNUM
 fi
@@ -84,7 +86,7 @@ read -p "Provide the file name: " userFEED
 if [[ $userFEED == '' ]]; then
    savenam=graph
 else
-   savenam=$userFEED
+   savenam=`echo ${userFEED// /_}`
 fi
 
 
