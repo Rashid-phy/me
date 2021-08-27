@@ -21,7 +21,9 @@ if ! [[ $pNUM =~ $NUM ]] ; then
 fi
 
 echo ""
-ls -p | grep -vE '\\|eps|png|jpg|jpeg|pdf|klist|kgen|injoint|inop' > $flist
+#ls -p | grep -v / > $flist
+ls -p | grep -vE '/|\.eps$|\.png$|\.jpg$|\.jpeg$|\.pdf$|\.klist$|\.kgen$|\.injoint$|\.inop$|\.inkram$' > $flist
+#ls -p | egrep -v '/|\.eps$|\.png$|\.jpg$|\.jpeg$|\.pdf$|\.klist$|\.kgen$|\.injoint$|\.inop$' > $flist
 cat -n $flist
 
 ####################################################
@@ -38,7 +40,7 @@ else
 fi
 
 if [[ ! -s $fnam ]]; then
-   echo "Error: $fnam does not exit or has no data in it!" >&2; exit 1
+   echo "Error: File '$fnam' does not exist or has no data in it!" >&2; exit 1
 else
    echo "Selected file name: $fnam"
 fi
