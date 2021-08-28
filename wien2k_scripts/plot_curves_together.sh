@@ -15,8 +15,13 @@ NUM='^[0-9]+$'
 plotSTR='plot'
 flist=/tmp/files.txt
 
+
 read -p "How many lines/curves do you like to plot? " pNUM
 if ! [[ $pNUM =~ $NUM ]] ; then
+   echo "Error: Not a valid number!" >&2; exit 1
+elif [[ $pNUM == '0' ]] ; then
+   echo "Error: Not a valid number!" >&2; exit 1
+elif [[ $pNUM == '00' ]] ; then
    echo "Error: Not a valid number!" >&2; exit 1
 fi
 
@@ -31,7 +36,7 @@ for ii in {1..99} ; do
 
 echo ""
 read -p "$ii. Enter the file name or the sirial number: " fNUM
-if [[ $fNUM == '' ]]; then 
+if [[ $fNUM == '' || $fNUM == '0' || $fNUM == '00' ]]; then 
    echo "Error: Not a valid input!" >&2; exit 1
 elif [[ $fNUM =~ $NUM ]] ; then
    fnam=`gawk -v jj=$fNUM 'NR==jj' $flist`
@@ -52,6 +57,10 @@ echo ""
 
 read -p "Enter the column number: " cNUM
 if ! [[ $cNUM =~ $NUM ]] ; then
+   echo "Error: Not a valid number!" >&2; exit 1
+elif [[ $cNUM == '0' ]] ; then
+   echo "Error: Not a valid number!" >&2; exit 1
+elif [[ $cNUM == '00' ]] ; then
    echo "Error: Not a valid number!" >&2; exit 1
 fi
 
@@ -166,6 +175,7 @@ set	linetype	7	linewidth	3	lc	rgb	"dark-red"
 set	linetype	8	linewidth	3	lc	rgb	"goldenrod"
 set	linetype	cycle	9
 
+set border lw 3
 
 $ptitle
 $pxlabel
