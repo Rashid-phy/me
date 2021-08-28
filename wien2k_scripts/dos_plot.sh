@@ -14,6 +14,7 @@ set	linetype	7	linewidth	3	lc	rgb	"dark-red"
 set	linetype	8	linewidth	3	lc	rgb	"goldenrod"
 set	linetype	cycle	9
 
+set border lw 3
 
 set term png enhanced size 1000,800 font "Times-Roman, 20"
 set output "dos_plot.png"

@@ -83,6 +83,8 @@ done
 cat > gplot.gnu << EOF
 set linetype    2   linewidth	4   pt 2   lc rgb 'red' 
 
+set border lw 3
+
 set term png enhanced size 1000,800 font "Times-Roman, 20
 set output "${NAME}_E_con.png"
 set xlabel "Number of iteration"

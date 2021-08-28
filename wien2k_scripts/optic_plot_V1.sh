@@ -77,6 +77,8 @@ set	linetype	6	linewidth	3	lc	rgb	"cyan"
 set	linetype	7	linewidth	3	lc	rgb	"dark-red"		
 set	linetype	8	linewidth	3	lc	rgb	"goldenrod"
 set	linetype	cycle	9
+
+set border lw 3
 EOF
 fi
 SETeps='set term postscript eps enhanced color font "Times-Roman, 20" '
