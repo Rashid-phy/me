@@ -363,6 +363,12 @@ th, tr {
   text-align: center;
 }
 
+
+tr {
+  font-size: 1.2em;
+}
+
+
 /* END BODY PAGE */
 
 
@@ -523,7 +529,9 @@ th, tr {
   color: lightblue; /* # f5f2d0 lightblue */
   }
 
-
+tr {
+  font-size: 1.1em;
+}
 
 /*  .container #materials-theory {
     width: 80%;
@@ -557,6 +565,10 @@ th, tr {
 .page-topic-list li, .page-topic-details p, #about-me, .about-research p, #open-position p, 
 .about-course p, .research-topic p, #publication li {
   font-size: 1.0em
+}
+
+tr {
+  font-size: 1.0em;
 }
 
 }

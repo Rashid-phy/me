@@ -104,19 +104,19 @@ fi
 echo ""
 read -p "Set a title for the plot: " userFEED
 if [[ $userFEED == '' ]]; then
-   ptitle=''
+   ptitle='#set title '
 else
    ptitle="set title '$userFEED'"
 fi
 read -p "Set the label for x-axis: " userFEED
 if [[ $userFEED == '' ]]; then
-   pxlabel=''
+   pxlabel='#set xlabel '
 else
    pxlabel="set xlabel '$userFEED'"
 fi
 read -p "Set the label for y-axis: " userFEED
 if [[ $userFEED == '' ]]; then
-   pylabel=''
+   pylabel='#set ylabel '
 else
    pylabel="set ylabel '$userFEED'"
 fi
@@ -177,6 +177,9 @@ set	linetype	cycle	9
 
 set border lw 3
 
+#set xzeroaxis
+#set yzeroaxis
+
 $ptitle
 $pxlabel
 $pylabel
@@ -189,7 +192,7 @@ $plotSTR
 
 $SETpng
 set output '$savenam.png'
-$plotSTR
+replot
 
 !xdg-open $savenam.png
 
