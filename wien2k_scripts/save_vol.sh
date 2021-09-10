@@ -195,8 +195,17 @@ else
 fi
 
 
-sendDIR=${NAME}_vol_opt_${volENElow}_send
-saveDIR=01.vol_opt_${volENElow}
+#sendDIR=${NAME}_vol_opt_${volENElow}_send
+#saveDIR=01.vol_opt_${volENElow}
+
+SCF=${STRUCTURE%.struct}.scf
+if [[ -f ${SCF}2up && -f ${SCF}2dn ]]; then
+   sendDIR=${NAME}_vol_opt_${volENElow}_sp_send
+   saveDIR=01.vol_opt_${volENElow}_sp
+else
+   sendDIR=${NAME}_vol_opt_${volENElow}_send
+   saveDIR=01.vol_opt_${volENElow}
+fi
 
 
 if [[ -d "$sendDIR" ]]; then

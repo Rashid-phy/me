@@ -170,9 +170,17 @@ else
 fi
  
 
-sendDIR=${NAME}_coa_opt_${coaENElow}_send
-saveDIR=02.coa_opt_${coaENElow}
+#sendDIR=${NAME}_coa_opt_${coaENElow}_send
+#saveDIR=02.coa_opt_${coaENElow}
 
+SCF=${STRUCTURE%.struct}.scf
+if [[ -f ${SCF}2up && -f ${SCF}2dn ]]; then
+   sendDIR=${NAME}_coa_opt_${coaENElow}_sp_send
+   saveDIR=02.coa_opt_${coaENElow}_sp
+else
+   sendDIR=${NAME}_coa_opt_${coaENElow}_send
+   saveDIR=02.coa_opt_${coaENElow}
+fi
 
 if [[ -d "$sendDIR" ]]; then
 	echo "A folder named '$sendDIR' already exits!"
