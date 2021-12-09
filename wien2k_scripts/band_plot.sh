@@ -70,7 +70,13 @@ EOF
 
 
 
-if [[ -s $NAME.bands.agr ]]; then
+if [[ $1 != '' ]]; then
+   fnam=$1
+   fnam=${fnam%.agr}
+   WCTAfunction "$fnam"
+   
+
+elif [[ -s $NAME.bands.agr ]]; then
    WCTAfunction "$NAME.bands"
 
 
@@ -95,19 +101,19 @@ else
 fi
 
 
-if [[ -d $saveDIR ]]; then
-	rm $saveDIR/*
-else
-   mkdir $saveDIR
+if [[ $1 == '' ]]; then
+   if [[ -d $saveDIR ]]; then
+   	rm $saveDIR/*
+   else
+      mkdir $saveDIR
+   fi
+
+   save_lapw -s -band -d $saveDIR
+   cp $NAME.bands*.agr $NAME.bands*.png $NAME.bands*.eps $saveDIR/  2> /dev/null
+
+   echo " "
+   echo "Done! Results are saved in $saveDIR folder."
+   echo " "
 fi
-
-
-save_lapw -s -band -d $saveDIR
-cp $NAME.bands*.agr $NAME.bands*.png $NAME.bands*.eps $saveDIR/  2> /dev/null
-
-
-echo " "
-echo "Done! Results are saved in $saveDIR folder."
-echo " "
 
 
