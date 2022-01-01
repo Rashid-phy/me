@@ -120,30 +120,51 @@ SETpng='set term png enhanced size 1000,800 font "Times-Roman, 20"'
 SETeps='set term postscript eps enhanced color font "Times-Roman, 20" '
 
 cat > vplot.gnu << EOF
-set  linetype  1  linewidth  4  pt  2  lc  rgb 'red' 
-set  linetype  2  linewidth  2         lc  rgb "forest-green"	
+
+
+##########################################################
+##                                                      ##
+##  Gnuplot script by Dr. Rashid                        ##
+##                                                      ##
+##  WIEN2k Tutorials: https://tiny.cc/w2k               ##
+##                                                      ##
+##  Youtube: https://www.youtube.com/c/PhysicsSchool20  ##
+##                                                      ##
+##########################################################
+
+set  linetype  1  linewidth  6         lc  rgb "forest-green"	
+set  linetype  2  linewidth  5  pt  2  lc  rgb 'red' 
 
 set format y "%.4f"
 set title "$NAME: Murnaghan"
 set xlabel "Volume [bohr^3]"
 set ylabel "Energy [Ry]"
+
 $SETpng
 set output "$plotVOLcell.png"
-plot "$volDATA" u 1:3 w p notitle , "$NAME.eosfit"  w l notitle
+plot "$NAME.eosfit"  w l notitle, "$volDATA" u 1:3 w p notitle
+
 $SETeps
 set output "$plotVOLcell.eps"
-plot "$volDATA" u 1:3 w p notitle, "$NAME.eosfit"  w l notitle
+replot
+
+
 
 set format y "%.4f"
 set title "$NAME: Murnaghan"
 set xlabel "Change in volume [%]"
 set ylabel "Energy [Ry]"
+
+
 $SETpng
 set output "$plotVOLchange.png"
-plot "$volDATA" u 2:3 w p notitle, "$fitDATA" u 2:3 w l notitle
+plot "$fitDATA" u 2:3 w l notitle, "$volDATA" u 2:3 w p notitle
+
+
 $SETeps
 set output "$plotVOLchange.eps"
-plot "$volDATA" u 2:3 w p notitle, "$fitDATA" u 2:3 w l notitle
+replot
+
 EOF
 
 

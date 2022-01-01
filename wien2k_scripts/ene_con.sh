@@ -81,9 +81,22 @@ done
 
 
 cat > gplot.gnu << EOF
+
+##########################################################
+##                                                      ##
+##  Gnuplot script by Dr. Rashid                        ##
+##                                                      ##
+##  WIEN2k Tutorials: https://tiny.cc/w2k               ##
+##                                                      ##
+##  Youtube: https://www.youtube.com/c/PhysicsSchool20  ##
+##                                                      ##
+##########################################################
+
+set	linetype	1	linewidth	5	lc	rgb	"blue"	
 set linetype    2   linewidth	4   pt 2   lc rgb 'red' 
 
 set border lw 3
+#set key font "Times-Roman, 20"
 
 set term png enhanced size 1000,800 font "Times-Roman, 20
 set output "${NAME}_E_con.png"
