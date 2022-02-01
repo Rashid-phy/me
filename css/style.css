@@ -282,6 +282,12 @@ margin-bottom: 50px;
 	font-size: 0.9em;
 }
 
+.std-name {
+  font-size: 1.2em;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
 .research-topic h3 {
   font-size: 1.8em;
   color: #f6b319;
@@ -521,6 +527,12 @@ tr {
 	font-size: 0.85em;
   }
   
+.std-name {
+  font-size: 1.1em;
+  margin-top: 5px;
+  margin-bottom: 0;
+  }
+
  .research-topic .materials {
    width: 80%;
   }
