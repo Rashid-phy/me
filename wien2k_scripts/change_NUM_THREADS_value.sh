@@ -10,6 +10,10 @@ echo "************************************"
 echo ""
 echo "The script is free; you can redistribute it and/or modify it under the terms of the GNU General Public License. The script is distributed in the hope that it will be helpful, but WITHOUT ANY WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE."
 echo ""
+echo ''
+echo '*** The script is NOT suitable for WIEN2k version 21.1 or higher. ***'
+echo ''
+echo ''
 
 NUM='^[0-9]+$'
 bashfile=$HOME/.bashrc
@@ -26,8 +30,8 @@ if [[ $1 == c ]]; then exit; fi
 
 
 
-if [[ $nMAX -gt 8 ]]; then
-   echo "More than 8 cores may not increase performance."
+if [[ $nMAX -gt 4 ]]; then
+   echo "More than 4 threads may not increase performance."
 fi
 read -p "How many threads do you like to use? (maximum $nMAX) " ompthreads
 

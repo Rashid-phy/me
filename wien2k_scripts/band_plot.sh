@@ -44,8 +44,9 @@ cat >> $Nfile.agr << EOF
  @ yaxis  label char size $LcS
  @ yaxis  ticklabel char size 2.0
 
- @    frame linewidth 3.0
- @ title size 1.750000
+ @ frame linewidth 3.0
+ @ title size 2.50000
+ @ subtitle size 2.50000
 
 EOF
 
