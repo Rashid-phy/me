@@ -33,7 +33,9 @@ if [[ -d "$saveDIR" ]]; then
 	exit
 fi
 
+
 save_lapw -nodel -s -d $saveDIR
+cp $saveDIR/$NAME.scf .
 
 
 if [[ -s STDOUT ]]; then
