@@ -12,12 +12,13 @@ echo "The script is free; you can redistribute it and/or modify it under the ter
 echo ""
 
 #sudo apt-get install zip
+NAME=${PWD##*/}
+SCF=$NAME.scf
 
-if [[ ! -f "$(ls *.scf)" ]]; then
+if [[ ! -f "$SCF" ]]; then
 	echo "scf file is missing!! Run SCF first!!!"
+	echo ''
 	exit 1
-else
-	NAME=`ls *.scf | sed -e "s/.scf//"`
 fi
 
 if [[ $# -eq 0 ]]; then
@@ -35,7 +36,9 @@ fi
 
 
 save_lapw -nodel -s -d $saveDIR
-cp $saveDIR/$NAME.scf .
+if [[ ! -s $SCF ]]; then
+   cp $saveDIR/$SCF .
+fi
 
 
 if [[ -s STDOUT ]]; then
