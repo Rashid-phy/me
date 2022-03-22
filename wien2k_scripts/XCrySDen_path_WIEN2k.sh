@@ -3,7 +3,7 @@
 echo ""
 echo "************************************"
 echo "*                                  *"
-echo "*   Script by Dr. Rashid @ 20201    *"
+echo "*   Script by Dr. Rashid @ 2021    *"
 echo "*                                  *" 
 echo "************************************"
 echo ""
