@@ -63,7 +63,7 @@ read -p "For which atom you like to calculate PDOS (number only): " atomNUM
 totalATOM=`grep 'RMT=' $structure | wc -l`
 if ! [[ $atomNUM =~ $NUM ]]; then
    WCTAfunction 'Wrong choice! Try again!!'
-elif [[ $atomNUM -gt $totalATOM ]]; then
+elif [[ $atomNUM > $totalATOM ]]; then
    WCTAfunction 'Wrong choice! Try again!!'
 fi
 
@@ -100,7 +100,7 @@ cat << EOF
 ## Total contribution of individual atom will be calculates. ##
 ###############################################################
 EOF
-if [[ $totalATOM -gt 6 ]]; then
+if [[ $totalATOM > 6 ]]; then
    totalATOM=6
 cat << EOF
 ##  For first 6 atoms the claculation and plot will be done. ##
@@ -335,7 +335,7 @@ fi
 
 STRspace=`echo "$STR" | tr , " "`
 STRcount=`echo "$STRspace" | wc -w`
-if [[ $STRcount -gt 5 ]]; then
+if [[ $STRcount > 5 ]]; then
    WCTAfunction 'Wrong choice! Try again!!'
 fi
 
