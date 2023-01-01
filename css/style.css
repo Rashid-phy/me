@@ -246,6 +246,21 @@ margin-top: -15px;
   /*color: green;*/
 }
 
+.advice-prerequisites {
+  margin: -40px auto 50px auto;
+  color: yellow;
+}
+
+.advice-prerequisites p {
+  font-size: 1.25em;
+/*  font-weight: bold;*/
+  text-align: justify;
+  padding-top: 20px;
+  /*width: 95%;*/
+  /*color: green;*/
+}
+
+
 .about-research, #open-position  {
 margin-bottom: 50px;
 }
