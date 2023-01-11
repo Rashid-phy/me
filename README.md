@@ -7,7 +7,7 @@
 
   <body>
   
-  <p>The repository is maintained by Dr Rashid</p>
+  <p>The repository is maintained by Dr. Rashid</p>
   <p>Email: rashid@just.edu.bd</p>
   <p>Visit: <a href="https://rashid-phy.github.io/me/index.html">https://rashid-phy.github.io/me/index.html</a></p>
   
