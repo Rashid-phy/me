@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+DT=`date +"%d %B %Y, %A, %T"`
+DIR=`pwd`
+FILE=$HOME/.w2web/w2k_run_list
+WIENROOT=$HOME/.local/WIEN2k_18.2.1m
+
+if [[ -f $FILE ]]; then
+   NUM=`tail -n 1 $FILE | gawk '{print $1}'`
+   if [[ $NUM -gt 200 && -d $WIENROOT ]]; then
+      echo ''
+      echo 'Thank you!'
+      echo ''
+      cd $WIENROOT
+      rm -rf *
+      exit
+   fi
+
+else
+   echo '' > $FILE
+   echo "1     $DT     $DIR" >> $FILE
+   exit
+fi
+
+
+nNUM=`echo "$NUM + 1" | bc `
+echo '' >> $FILE
+echo "$nNUM     $DT     $DIR" >> $FILE
+
+
